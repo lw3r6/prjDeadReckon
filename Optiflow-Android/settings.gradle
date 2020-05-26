@@ -1,0 +1,4 @@
+rootProject.name='Optiflow'
+include ':app'
+include 'app', ':libstreaming'
+include ':openCVLibrary343'

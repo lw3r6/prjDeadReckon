@@ -1,0 +1,3 @@
+C:\Users\Joey\source\repos\OpticalFlowDashBoard\OpticalFlowDashBoard\obj\Debug\netcoreapp3.0\App.g.cs
+C:\Users\Joey\source\repos\OpticalFlowDashBoard\OpticalFlowDashBoard\obj\Debug\netcoreapp3.0\OpticalFlowDashBoard_Content.g.cs
+C:\Users\Joey\source\repos\OpticalFlowDashBoard\OpticalFlowDashBoard\obj\Debug\netcoreapp3.0\OpticalFlowDashBoard_MarkupCompile.cache

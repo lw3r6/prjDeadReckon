@@ -1,0 +1,99 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.0": {
+      "FFME.Windows/4.2.330": {
+        "dependencies": {
+          "FFmpeg.AutoGen": "4.2.0"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/ffme.win.dll": {
+            "assemblyVersion": "4.2.330.0",
+            "fileVersion": "4.2.330.0"
+          }
+        }
+      },
+      "FFmpeg.AutoGen/4.2.0": {
+        "runtime": {
+          "lib/netstandard2.0/FFmpeg.AutoGen.dll": {
+            "assemblyVersion": "4.2.0.0",
+            "fileVersion": "4.2.0.0"
+          }
+        }
+      },
+      "SciChart/6.0.2.13028": {
+        "runtime": {
+          "lib/netcoreapp3.0/SciChart.Charting.dll": {
+            "assemblyVersion": "6.0.2.13028",
+            "fileVersion": "6.0.2.13028"
+          },
+          "lib/netcoreapp3.0/SciChart.Core.dll": {
+            "assemblyVersion": "6.0.2.13028",
+            "fileVersion": "6.0.2.13028"
+          },
+          "lib/netcoreapp3.0/SciChart.Data.dll": {
+            "assemblyVersion": "6.0.2.13028",
+            "fileVersion": "6.0.2.13028"
+          },
+          "lib/netcoreapp3.0/SciChart.Drawing.dll": {
+            "assemblyVersion": "6.0.2.13028",
+            "fileVersion": "6.0.2.13028"
+          }
+        }
+      },
+      "SciChart3D/6.0.2.13028": {
+        "dependencies": {
+          "SciChart": "6.0.2.13028"
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/SciChart.Charting3D.dll": {
+            "assemblyVersion": "6.0.2.13028",
+            "fileVersion": "6.0.2.13028"
+          }
+        }
+      },
+      "VideoLAN.LibVLC.Windows/3.0.10": {}
+    }
+  },
+  "libraries": {
+    "FFME.Windows/4.2.330": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-J2N00eWyXBY6w4D6gBFUyfT7E5yQJPw9SlyDBmygBXnnIpKiY0PtI8vIiQL08JONUbO/LZLSkwkjwBFJksnWZw==",
+      "path": "ffme.windows/4.2.330",
+      "hashPath": "ffme.windows.4.2.330.nupkg.sha512"
+    },
+    "FFmpeg.AutoGen/4.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xYVwmerbB0unhvA1tSp7bUPKuPjEWFCKJ+OlIQvfK1lObILHMKUKrxnzN33yTOCNMCTdm8+vkBZDfAtlHTt7rg==",
+      "path": "ffmpeg.autogen/4.2.0",
+      "hashPath": "ffmpeg.autogen.4.2.0.nupkg.sha512"
+    },
+    "SciChart/6.0.2.13028": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QrQw7/NgLDhFgbQ68fNubDyWAUc0adrfPGCSCvP0EWN7j6UWNp4da8tBnlwgcfBAHIc3RY+kgEJsj/wXPzbCAA==",
+      "path": "scichart/6.0.2.13028",
+      "hashPath": "scichart.6.0.2.13028.nupkg.sha512"
+    },
+    "SciChart3D/6.0.2.13028": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9DWV5hwH1EsEll4CPCm7fXMoVHcy9JIncOPYEha8mc/ZM7hZ5CkyxaQeDYrhQODBD7rD3yrvgPmOSJFbZlMQSA==",
+      "path": "scichart3d/6.0.2.13028",
+      "hashPath": "scichart3d.6.0.2.13028.nupkg.sha512"
+    },
+    "VideoLAN.LibVLC.Windows/3.0.10": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-37wegKzI6wYrouhCrP1FfmQXD69gchgHVkolMopOuYDWs6mxxOjtFpZpsGMXU8/0ve0DaNfuPb4r3pKcQ6/d5A==",
+      "path": "videolan.libvlc.windows/3.0.10",
+      "hashPath": "videolan.libvlc.windows.3.0.10.nupkg.sha512"
+    }
+  }
+}

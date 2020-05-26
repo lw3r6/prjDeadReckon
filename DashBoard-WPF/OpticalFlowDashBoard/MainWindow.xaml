@@ -1,0 +1,247 @@
+﻿<Window x:Class="OpticalFlowDashBoard.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
+        xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D"
+        xmlns:wpf="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
+     
+        
+        Title="OpticalFlow Dashboard" Width="1920" Height="1080">
+    <Grid x:Name="LayoutRoot" Background="#555555" Margin="0,0,0,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="3*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="35*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="35*"/>
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="35*"/>
+        </Grid.RowDefinitions>
+        <Label Content="Console" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="26" Width="38" Margin="0,0,0,3"/>
+        <RichTextBox x:Name="consoleOutput" Grid.Row="1" Margin="0,0,0,4"/>
+
+        <Label Content="Accelormeter Data in relation to world plane" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1"/>
+        <s:SciChartSurface x:Name="sciChartSurface" Grid.Column="1" Grid.Row="1" Margin="0,0,0,0">
+
+            <!--  Define RenderableSeries  -->
+            <!-- where xmlns:s="http://schemas.abtsoftware.co.uk/scichart" -->
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastLineRenderableSeries x:Name="XWorldAcc" Stroke="#7A2715"/>
+                <s:FastLineRenderableSeries x:Name="YWorldAcc" Stroke="#74B3CE"/>
+                <s:FastLineRenderableSeries x:Name="ZWorldAcc" Stroke="#FFF59A"/>
+            </s:SciChartSurface.RenderableSeries>
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis AxisTitle="Number of Samples (per Series)"/>
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxis>
+                <s:NumericAxis AxisTitle="Value"/>
+            </s:SciChartSurface.YAxis>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:RubberBandXyZoomModifier />
+                    <s:ZoomExtentsModifier />
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+            <s:SciChartSurface.Annotations>
+                <s:TextAnnotation Text="Hello world!" X1="5.0" Y1="5"/>
+            </s:SciChartSurface.Annotations>
+        </s:SciChartSurface>
+
+        <Label Content="Accelormeter Data in relation to device plane" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2"/>
+        <s:SciChartSurface x:Name="sciChartSurface1" Grid.Column="2" Grid.Row="1" Margin="0,0,0,0">
+
+            <!--  Define RenderableSeries  -->
+            <!-- where xmlns:s="http://schemas.abtsoftware.co.uk/scichart" -->
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastLineRenderableSeries x:Name="XDeviceAcc" Stroke="#7A2715"/>
+                <s:FastLineRenderableSeries x:Name="YDeviceAcc" Stroke="#74B3CE"/>
+                <s:FastLineRenderableSeries x:Name="ZDeviceAcc" Stroke="#FFF59A"/>
+            </s:SciChartSurface.RenderableSeries>
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis AxisTitle="Number of Samples (per Series)"/>
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxis>
+                <s:NumericAxis AxisTitle="Value"/>
+            </s:SciChartSurface.YAxis>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:RubberBandXyZoomModifier />
+                    <s:ZoomExtentsModifier />
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+            <s:SciChartSurface.Annotations>
+                <s:TextAnnotation Text="Hello world!" X1="5.0" Y1="5"/>
+            </s:SciChartSurface.Annotations>
+        </s:SciChartSurface>
+
+        <Label Content="Velocity Data in relation to world plane" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
+        <s:SciChartSurface x:Name="sciChartSurface2" Grid.Column="1" Grid.Row="3">
+
+            <!--  Define RenderableSeries  -->
+            <!-- where xmlns:s="http://schemas.abtsoftware.co.uk/scichart" -->
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastLineRenderableSeries x:Name="XWorldVel" Stroke="#7A2715"/>
+                <s:FastLineRenderableSeries x:Name="YWorldVel" Stroke="#74B3CE"/>
+                <s:FastLineRenderableSeries x:Name="ZWorldVel" Stroke="#FFF59A"/>
+            </s:SciChartSurface.RenderableSeries>
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis AxisTitle="Number of Samples (per Series)"/>
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxis>
+                <s:NumericAxis AxisTitle="Value"/>
+            </s:SciChartSurface.YAxis>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:RubberBandXyZoomModifier />
+                    <s:ZoomExtentsModifier />
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+            <s:SciChartSurface.Annotations>
+                <s:TextAnnotation Text="Hello world!" X1="5.0" Y1="5"/>
+            </s:SciChartSurface.Annotations>
+        </s:SciChartSurface>
+
+        <Label Content="Velocity Data in relation to device plane" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="2"/>
+        <s:SciChartSurface x:Name="sciChartSurface3" Grid.Column="2" Grid.Row="3" Margin="0,0,0,0">
+
+            <!--  Define RenderableSeries  -->
+            <!-- where xmlns:s="http://schemas.abtsoftware.co.uk/scichart" -->
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastLineRenderableSeries x:Name="XDeviceVel" Stroke="#7A2715"/>
+                <s:FastLineRenderableSeries x:Name="YDeviceVel" Stroke="#74B3CE"/>
+                <s:FastLineRenderableSeries x:Name="ZDeviceVel" Stroke="#FFF59A"/>
+            </s:SciChartSurface.RenderableSeries>
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis AxisTitle="Number of Samples (per Series)"/>
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxis>
+                <s:NumericAxis AxisTitle="Value"/>
+            </s:SciChartSurface.YAxis>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:RubberBandXyZoomModifier />
+                    <s:ZoomExtentsModifier />
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+            <s:SciChartSurface.Annotations>
+                <s:TextAnnotation Text="Hello world!" X1="5.0" Y1="5"/>
+            </s:SciChartSurface.Annotations>
+        </s:SciChartSurface>
+
+        <Label Content="Estimated Position Change of device" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+        <s3D:SciChart3DSurface ShowLicensingWarnings="False"
+                        IsFpsCounterVisible="True"
+                         IsAxisCubeVisible="True"
+                         IsXyzGizmoVisible="True" Grid.Column="0" Grid.Row="3">
+            <s3D:SciChart3DSurface.RenderableSeries>
+                <s3D:ScatterRenderableSeries3D x:Name="PositionGraph">
+                    <s3D:ScatterRenderableSeries3D.PointMarker>
+                        <s3D:EllipsePointMarker3D Fill="#77ADFF2F"/>
+                    </s3D:ScatterRenderableSeries3D.PointMarker>
+                </s3D:ScatterRenderableSeries3D>
+            </s3D:SciChart3DSurface.RenderableSeries>
+            <s3D:SciChart3DSurface.XAxis>
+                <s3D:NumericAxis3D GrowBy="0.1,0.1" />
+            </s3D:SciChart3DSurface.XAxis>
+            <s3D:SciChart3DSurface.YAxis>
+                <s3D:NumericAxis3D GrowBy="0.1,0.1" />
+            </s3D:SciChart3DSurface.YAxis>
+            <s3D:SciChart3DSurface.ZAxis>
+                <s3D:NumericAxis3D GrowBy="0.1,0.1" />
+            </s3D:SciChart3DSurface.ZAxis>
+        </s3D:SciChart3DSurface>
+
+        <Label Content="Direction of device" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
+        <Canvas Name="myCanvas" Grid.Column="0" Grid.Row="5" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="North" Canvas.Left="-20" Canvas.Top="-88"/>
+            <Line X1="0" X2="0" Y1="-60" Y2="60" StrokeThickness="1" Stroke="White"/>
+            <Line X1="-60" X2="60" Y1="0" Y2="0" StrokeThickness="1" Stroke="White"/>
+
+            <Polygon x:Name="arrow" Points="
+                     -3,-45 -3,35 
+                     -15,35 0,45 
+                     15,35 3,35 
+                     3,-45"
+        Fill="Black"
+        Stroke="Black" StrokeThickness="1">
+                <Polygon.RenderTransform>
+                    <RotateTransform CenterX="0" CenterY="0" Angle="0" />
+                </Polygon.RenderTransform>
+
+            </Polygon>
+
+        </Canvas>
+
+        <Grid Grid.Row="4" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Device Tilt (Camera up / down)" Grid.Column="0"/>
+            <Label Content="Device Tilt (ChargingPort up / down)" Grid.Column="1"/>
+        </Grid>
+
+        <Grid Grid.Row="5" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Name="camDirectionCanvas" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Line X1="0" X2="0" Y1="-75" Y2="75" StrokeThickness="1" Stroke="White"/>
+
+                <Polygon x:Name="CamArrow" Points="
+                     -3,-45 -3,45 
+                     3,45 3,-45"
+        Fill="Black"
+        Stroke="Black" StrokeThickness="1">
+                    <Polygon.RenderTransform>
+                        <RotateTransform CenterX="0" CenterY="0" Angle="0" />
+                    </Polygon.RenderTransform>
+
+                </Polygon>
+
+            </Canvas>
+            <Canvas Name="camRotationCanvas" Grid.Column="1" Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Line X1="-70" X2="70" Y1="0" Y2="0" StrokeThickness="1" Stroke="White"/>
+
+                <Polygon x:Name="CamSpin" Points="
+                     -40,-20 
+                     -40,20  
+                     40,20  
+                     40,-20"
+        Fill="Black"
+        Stroke="Black" StrokeThickness="1">
+                    <Polygon.RenderTransform>
+                        <RotateTransform CenterX="0" CenterY="0" Angle="0" />
+                    </Polygon.RenderTransform>
+
+                </Polygon>
+
+            </Canvas>
+
+        </Grid>
+
+        <Label Content="Camera view" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
+
+        <Grid Name="myGrid" Grid.Column="2" Grid.Row="5" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Name="optiflowCanvas" Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" Background="White"/>
+            <wpf:VlcControl x:Name="vlcPlayer" Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" Grid.ColumnSpan="1"/>
+
+        </Grid>
+
+    </Grid>
+    <!--  Create the chart surface  -->
+    <!-- where xmlns:s="http://schemas.abtsoftware.co.uk/scichart" -->
+</Window>
