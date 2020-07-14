@@ -13,6 +13,6 @@
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(TargetFramework)' == 'netcoreapp3.1' AND '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgSciChart Condition=" '$(PkgSciChart)' == '' ">C:\Users\joeyf\.nuget\packages\scichart\6.0.2.13028</PkgSciChart>
+    <PkgSciChart Condition=" '$(PkgSciChart)' == '' ">C:\Users\joeyf\.nuget\packages\scichart\6.1.1.13136</PkgSciChart>
   </PropertyGroup>
 </Project>

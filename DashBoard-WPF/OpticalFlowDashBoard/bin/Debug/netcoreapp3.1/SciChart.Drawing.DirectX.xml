@@ -52,12 +52,12 @@
         </member>
         <member name="E:SciChart.Drawing.DirectX.Context.D3D11.Direct3D11RenderSurface.InitializationFailed">
             <summary>
-            This event handler will fire if the direct x initialization fails
+            This event handler will fire if the direct x initialization fails.
             </summary>
         </member>
         <member name="E:SciChart.Drawing.DirectX.Context.D3D11.Direct3D11RenderSurface.RenderingFailed">
             <summary>
-            Event handler to be used when rendering fails..
+            Event handler to be used when rendering fails.
             </summary>
         </member>
         <member name="M:SciChart.Drawing.DirectX.Context.D3D11.Direct3D11RenderSurface.#ctor">
@@ -87,7 +87,7 @@
         <member name="P:SciChart.Drawing.DirectX.Context.D3D11.Direct3D11RenderSurface.EnableForceWaitForGPU">
             <summary>
             When false (default), no waiting for gpu
-            when true , we force wait for the gpu to finsh rendering before invaldintng the final image or copying it 
+            when true , we force wait for the gpu to finish rendering before invalidating the final image or copying it 
             </summary>
             <example>
             To enable compatibility mode for SciChart3DSurface, set this property once, statically, in your application
@@ -117,8 +117,9 @@
         </member>
         <member name="M:SciChart.Drawing.DirectX.Context.D3D11.Direct3D11RenderSurface.SciChart#Drawing#DirectX#Rendering#IDirectXRenderSurface#ResetD3D11With(System.Boolean)">
             <summary>
-            Resets the D3D Engine with the flag <param name="useAlternativeFillSource"> which determines whether we use the alternative software path for mixing DirectX content with WPF.
-            This flag (when true) improves compatibility on some older graphics hardware, at the expense of performance</param></summary>
+            Resets the D3D Engine with the flag which determines whether we use the alternative software path for mixing DirectX content with WPF.
+            This flag (when true) improves compatibility on some older graphics hardware, at the expense of performance.
+            </summary>
             <param name="useAlternativeFillSource">This flag (when true) improves compatibility on some older graphics hardware, at the expense of performance</param>
         </member>
         <member name="M:SciChart.Drawing.DirectX.Context.D3D11.Direct3D11RenderSurface.InitEngineAsync">

@@ -83,7 +83,7 @@ public class LiveGraphing extends Activity implements View.OnClickListener, Sess
         //Remove title bar
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-//Remove notification bar
+        //Remove notification bar
         this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         this.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_REVERSE_LANDSCAPE);
@@ -129,6 +129,7 @@ public class LiveGraphing extends Activity implements View.OnClickListener, Sess
 
             if (record) {
                 mRenderer.stop();
+
             } else {
                 accWorldGraphData.initData();
                 accDeviceGraphData.initData();
@@ -137,6 +138,7 @@ public class LiveGraphing extends Activity implements View.OnClickListener, Sess
                 orientationGraphData.initData();
                 changeCamera.initData();
                 posCamera.initData();
+                realsense.captureCloud();
                 //plotting3DHandler.initData();
 
                 WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
@@ -255,7 +257,6 @@ public class LiveGraphing extends Activity implements View.OnClickListener, Sess
         return Float.parseFloat(new DecimalFormat("#.###").format(d));
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
@@ -292,9 +293,7 @@ public class LiveGraphing extends Activity implements View.OnClickListener, Sess
         realsense.stop();
     }
 
-
     @Override
-
     public void onPreviewStarted() {
         Log.d("TAG","Preview started.");
     }
@@ -393,35 +392,35 @@ public class LiveGraphing extends Activity implements View.OnClickListener, Sess
             velVectWorld = new float[3];
             velVectDevice = new float[3];
 
-            try {
-                File f = new File(getFilesDir(), filename + ".csv");
-                if (f.exists()) {
-                    f.createNewFile();
-                } else {
-                    f.delete();
-                    f.createNewFile();
-                }
-                csvWriter = new FileWriter(f);
-                csvWriter.append("Longitude Acc");
-                csvWriter.append(",");
-                csvWriter.append("Traverse Acc");
-                csvWriter.append(",");
-                csvWriter.append("Vertical Acc");
-                csvWriter.append(",");
-                csvWriter.append("Nor/Sou Acc");
-                csvWriter.append(",");
-                csvWriter.append("Eas/Wes Acc");
-                csvWriter.append(",");
-                csvWriter.append("Up/Down Acc");
-                csvWriter.append(",");
-                csvWriter.append("Azimuth");
-                csvWriter.append(",");
-                csvWriter.append("Pitch");
-                csvWriter.append(",");
-                csvWriter.append("Roll");
-                csvWriter.append(",");
-                csvWriter.append("EventTime");
-                csvWriter.append("\n");
+//            try {
+//                File f = new File(getFilesDir(), filename + ".csv");
+//                if (f.exists()) {
+//                    f.createNewFile();
+//                } else {
+//                    f.delete();
+//                    f.createNewFile();
+//                }
+//                csvWriter = new FileWriter(f);
+//                csvWriter.append("Longitude Acc");
+//                csvWriter.append(",");
+//                csvWriter.append("Traverse Acc");
+//                csvWriter.append(",");
+//                csvWriter.append("Vertical Acc");
+//                csvWriter.append(",");
+//                csvWriter.append("Nor/Sou Acc");
+//                csvWriter.append(",");
+//                csvWriter.append("Eas/Wes Acc");
+//                csvWriter.append(",");
+//                csvWriter.append("Up/Down Acc");
+//                csvWriter.append(",");
+//                csvWriter.append("Azimuth");
+//                csvWriter.append(",");
+//                csvWriter.append("Pitch");
+//                csvWriter.append(",");
+//                csvWriter.append("Roll");
+//                csvWriter.append(",");
+//                csvWriter.append("EventTime");
+//                csvWriter.append("\n");
 
 
                 transmitter = new SendAcc(SERVER_IP);
@@ -429,9 +428,9 @@ public class LiveGraphing extends Activity implements View.OnClickListener, Sess
                 transmitter.start();
 
 
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
         }
 
@@ -525,11 +524,11 @@ public class LiveGraphing extends Activity implements View.OnClickListener, Sess
                     String write = String.format(Locale.ENGLISH, "%f,%f,%f,%f,%f,%f,%f,%f,%f,%f", accMatrix[0], accMatrix[1], accMatrix[2], accVectors[0], accVectors[1], accVectors[2], Math.toDegrees(orientation[0]), Math.toDegrees(orientation[1]), Math.toDegrees(orientation[2]), (float) event.timestamp);
                     //transmitter.send(write);
 
-                    try {
-                        csvWriter.append("Sensors:").append(write).append('\n');
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        csvWriter.append("Sensors:").append(write).append('\n');
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
 
                     //deviceacc[1,2,3], worldacc[1,2,3], deviceVel[1,2,3], worldVel[1,2,3]
                     String write1 = String.format(Locale.ENGLISH, "%f,%f,%f," + //DeviceAcc [0,1,2]

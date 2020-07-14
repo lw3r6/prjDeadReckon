@@ -9,10 +9,13 @@
       "OpticalFlowDashBoard/1.0.0": {
         "dependencies": {
           "FFME.Windows": "4.2.330",
-          "SciChart3D": "6.0.2.13028",
-          "VideoLAN.LibVLC.Windows": "3.0.0",
+          "SciChart3D": "6.1.1.13136",
+          "VideoLAN.LibVLC.Windows": "3.0.10",
           "Vlc.DotNet.Core": "3.0.0",
-          "Vlc.DotNet.Wpf": "3.0.0"
+          "Vlc.DotNet.Wpf": "3.0.0",
+          "SciChart.Charting.DrawingTools": "6.1.1.13136",
+          "SciChart.Drawing.DirectX": "6.1.1.13136",
+          "SciChart.Examples.ExternalDependencies": "6.1.1.13136"
         },
         "runtime": {
           "OpticalFlowDashBoard.dll": {}
@@ -37,38 +40,38 @@
           }
         }
       },
-      "SciChart/6.0.2.13028": {
+      "SciChart/6.1.1.13136": {
         "runtime": {
           "lib/netcoreapp3.0/SciChart.Charting.dll": {
-            "assemblyVersion": "6.0.2.13028",
-            "fileVersion": "6.0.2.13028"
+            "assemblyVersion": "6.1.1.13136",
+            "fileVersion": "6.1.1.13136"
           },
           "lib/netcoreapp3.0/SciChart.Core.dll": {
-            "assemblyVersion": "6.0.2.13028",
-            "fileVersion": "6.0.2.13028"
+            "assemblyVersion": "6.1.1.13136",
+            "fileVersion": "6.1.1.13136"
           },
           "lib/netcoreapp3.0/SciChart.Data.dll": {
-            "assemblyVersion": "6.0.2.13028",
-            "fileVersion": "6.0.2.13028"
+            "assemblyVersion": "6.1.1.13136",
+            "fileVersion": "6.1.1.13136"
           },
           "lib/netcoreapp3.0/SciChart.Drawing.dll": {
-            "assemblyVersion": "6.0.2.13028",
-            "fileVersion": "6.0.2.13028"
+            "assemblyVersion": "6.1.1.13136",
+            "fileVersion": "6.1.1.13136"
           }
         }
       },
-      "SciChart3D/6.0.2.13028": {
+      "SciChart3D/6.1.1.13136": {
         "dependencies": {
-          "SciChart": "6.0.2.13028"
+          "SciChart": "6.1.1.13136"
         },
         "runtime": {
           "lib/netcoreapp3.0/SciChart.Charting3D.dll": {
-            "assemblyVersion": "6.0.2.13028",
-            "fileVersion": "6.0.2.13028"
+            "assemblyVersion": "6.1.1.13136",
+            "fileVersion": "6.1.1.13136"
           }
         }
       },
-      "VideoLAN.LibVLC.Windows/3.0.0": {},
+      "VideoLAN.LibVLC.Windows/3.0.10": {},
       "Vlc.DotNet.Core/3.0.0": {
         "dependencies": {
           "Vlc.DotNet.Core.Interops": "3.0.0"
@@ -95,6 +98,30 @@
             "fileVersion": "3.0.0.0"
           }
         }
+      },
+      "SciChart.Charting.DrawingTools/6.1.1.13136": {
+        "runtime": {
+          "SciChart.Charting.DrawingTools.dll": {
+            "assemblyVersion": "6.1.1.13136",
+            "fileVersion": "6.1.1.13136"
+          }
+        }
+      },
+      "SciChart.Drawing.DirectX/6.1.1.13136": {
+        "runtime": {
+          "SciChart.Drawing.DirectX.dll": {
+            "assemblyVersion": "6.1.1.13136",
+            "fileVersion": "6.1.1.13136"
+          }
+        }
+      },
+      "SciChart.Examples.ExternalDependencies/6.1.1.13136": {
+        "runtime": {
+          "SciChart.Examples.ExternalDependencies.dll": {
+            "assemblyVersion": "6.1.1.13136",
+            "fileVersion": "6.1.1.13136"
+          }
+        }
       }
     }
   },
@@ -118,26 +145,26 @@
       "path": "ffmpeg.autogen/4.2.0",
       "hashPath": "ffmpeg.autogen.4.2.0.nupkg.sha512"
     },
-    "SciChart/6.0.2.13028": {
+    "SciChart/6.1.1.13136": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-QrQw7/NgLDhFgbQ68fNubDyWAUc0adrfPGCSCvP0EWN7j6UWNp4da8tBnlwgcfBAHIc3RY+kgEJsj/wXPzbCAA==",
-      "path": "scichart/6.0.2.13028",
-      "hashPath": "scichart.6.0.2.13028.nupkg.sha512"
+      "sha512": "sha512-bWeVztBuwdZg3+nKa4YW5VNzEct8H5nKjUTOcAn0lnF2oEb3Me/KiK33h9iVGDE1tFR4zuCBDvou9TZn3nTyew==",
+      "path": "scichart/6.1.1.13136",
+      "hashPath": "scichart.6.1.1.13136.nupkg.sha512"
     },
-    "SciChart3D/6.0.2.13028": {
+    "SciChart3D/6.1.1.13136": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-9DWV5hwH1EsEll4CPCm7fXMoVHcy9JIncOPYEha8mc/ZM7hZ5CkyxaQeDYrhQODBD7rD3yrvgPmOSJFbZlMQSA==",
-      "path": "scichart3d/6.0.2.13028",
-      "hashPath": "scichart3d.6.0.2.13028.nupkg.sha512"
+      "sha512": "sha512-r8bYZnTbC9He8UltIvVQ04UaABY31f+aHCbwWJP/HztN2oExkPu++hnlra1Xywz4AU6u/RsGWYIAqH9JUTrhvw==",
+      "path": "scichart3d/6.1.1.13136",
+      "hashPath": "scichart3d.6.1.1.13136.nupkg.sha512"
     },
-    "VideoLAN.LibVLC.Windows/3.0.0": {
+    "VideoLAN.LibVLC.Windows/3.0.10": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-xf9NYxPxL3NCsZ7PLsmRnpQrF9R4jkdQtgqgUO4dSYzf+Gz1kEOgDbNFrJcA4/hWBNH1eiKGfyPe3K5AeNGdaA==",
-      "path": "videolan.libvlc.windows/3.0.0",
-      "hashPath": "videolan.libvlc.windows.3.0.0.nupkg.sha512"
+      "sha512": "sha512-37wegKzI6wYrouhCrP1FfmQXD69gchgHVkolMopOuYDWs6mxxOjtFpZpsGMXU8/0ve0DaNfuPb4r3pKcQ6/d5A==",
+      "path": "videolan.libvlc.windows/3.0.10",
+      "hashPath": "videolan.libvlc.windows.3.0.10.nupkg.sha512"
     },
     "Vlc.DotNet.Core/3.0.0": {
       "type": "package",
@@ -159,6 +186,21 @@
       "sha512": "sha512-Jw1l5Bz5unG1U8ddQl/w+zC+8hF7umlLUv9uad9rmbb4ky2LaRb0tdMHq1T/Dn36wznAdBnSIwk/wwXnsLItLQ==",
       "path": "vlc.dotnet.wpf/3.0.0",
       "hashPath": "vlc.dotnet.wpf.3.0.0.nupkg.sha512"
+    },
+    "SciChart.Charting.DrawingTools/6.1.1.13136": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SciChart.Drawing.DirectX/6.1.1.13136": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SciChart.Examples.ExternalDependencies/6.1.1.13136": {
+      "type": "reference",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

@@ -26,7 +26,7 @@
           "lib/netstandard2.0/FFmpeg.AutoGen.dll": {}
         }
       },
-      "SciChart/6.0.2.13028": {
+      "SciChart/6.1.1.13136": {
         "type": "package",
         "compile": {
           "lib/netcoreapp3.0/SciChart.Charting.dll": {},
@@ -41,10 +41,10 @@
           "lib/netcoreapp3.0/SciChart.Drawing.dll": {}
         }
       },
-      "SciChart3D/6.0.2.13028": {
+      "SciChart3D/6.1.1.13136": {
         "type": "package",
         "dependencies": {
-          "SciChart": "6.0.2.13028"
+          "SciChart": "6.1.1.13136"
         },
         "compile": {
           "lib/netcoreapp3.0/SciChart.Charting3D.dll": {}
@@ -53,7 +53,7 @@
           "lib/netcoreapp3.0/SciChart.Charting3D.dll": {}
         }
       },
-      "VideoLAN.LibVLC.Windows/3.0.0": {
+      "VideoLAN.LibVLC.Windows/3.0.10": {
         "type": "package",
         "build": {
           "build/VideoLAN.LibVLC.Windows.targets": {}
@@ -130,10 +130,10 @@
         "lib/netstandard2.0/FFmpeg.AutoGen.xml"
       ]
     },
-    "SciChart/6.0.2.13028": {
-      "sha512": "QrQw7/NgLDhFgbQ68fNubDyWAUc0adrfPGCSCvP0EWN7j6UWNp4da8tBnlwgcfBAHIc3RY+kgEJsj/wXPzbCAA==",
+    "SciChart/6.1.1.13136": {
+      "sha512": "bWeVztBuwdZg3+nKa4YW5VNzEct8H5nKjUTOcAn0lnF2oEb3Me/KiK33h9iVGDE1tFR4zuCBDvou9TZn3nTyew==",
       "type": "package",
-      "path": "scichart/6.0.2.13028",
+      "path": "scichart/6.1.1.13136",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -155,15 +155,15 @@
         "lib/netcoreapp3.0/SciChart.Data.xml",
         "lib/netcoreapp3.0/SciChart.Drawing.dll",
         "lib/netcoreapp3.0/SciChart.Drawing.xml",
-        "scichart.6.0.2.13028.nupkg.sha512",
+        "scichart.6.1.1.13136.nupkg.sha512",
         "scichart.nuspec",
         "tools/Init.PS1"
       ]
     },
-    "SciChart3D/6.0.2.13028": {
-      "sha512": "9DWV5hwH1EsEll4CPCm7fXMoVHcy9JIncOPYEha8mc/ZM7hZ5CkyxaQeDYrhQODBD7rD3yrvgPmOSJFbZlMQSA==",
+    "SciChart3D/6.1.1.13136": {
+      "sha512": "r8bYZnTbC9He8UltIvVQ04UaABY31f+aHCbwWJP/HztN2oExkPu++hnlra1Xywz4AU6u/RsGWYIAqH9JUTrhvw==",
       "type": "package",
-      "path": "scichart3d/6.0.2.13028",
+      "path": "scichart3d/6.1.1.13136",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -172,14 +172,14 @@
         "lib/net452/SciChart.Charting3D.xml",
         "lib/netcoreapp3.0/SciChart.Charting3D.dll",
         "lib/netcoreapp3.0/SciChart.Charting3D.xml",
-        "scichart3d.6.0.2.13028.nupkg.sha512",
+        "scichart3d.6.1.1.13136.nupkg.sha512",
         "scichart3d.nuspec"
       ]
     },
-    "VideoLAN.LibVLC.Windows/3.0.0": {
-      "sha512": "xf9NYxPxL3NCsZ7PLsmRnpQrF9R4jkdQtgqgUO4dSYzf+Gz1kEOgDbNFrJcA4/hWBNH1eiKGfyPe3K5AeNGdaA==",
+    "VideoLAN.LibVLC.Windows/3.0.10": {
+      "sha512": "37wegKzI6wYrouhCrP1FfmQXD69gchgHVkolMopOuYDWs6mxxOjtFpZpsGMXU8/0ve0DaNfuPb4r3pKcQ6/d5A==",
       "type": "package",
-      "path": "videolan.libvlc.windows/3.0.0",
+      "path": "videolan.libvlc.windows/3.0.10",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -290,11 +290,11 @@
         "build/x64/locale/ach/LC_MESSAGES/vlc.mo",
         "build/x64/locale/af/LC_MESSAGES/vlc.mo",
         "build/x64/locale/am/LC_MESSAGES/vlc.mo",
+        "build/x64/locale/am_ET/LC_MESSAGES/vlc.mo",
         "build/x64/locale/an/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ar/LC_MESSAGES/vlc.mo",
         "build/x64/locale/as_IN/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ast/LC_MESSAGES/vlc.mo",
-        "build/x64/locale/az/LC_MESSAGES/vlc.mo",
         "build/x64/locale/be/LC_MESSAGES/vlc.mo",
         "build/x64/locale/bg/LC_MESSAGES/vlc.mo",
         "build/x64/locale/bn/LC_MESSAGES/vlc.mo",
@@ -303,8 +303,8 @@
         "build/x64/locale/brx/LC_MESSAGES/vlc.mo",
         "build/x64/locale/bs/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ca/LC_MESSAGES/vlc.mo",
+        "build/x64/locale/ca@valencia/LC_MESSAGES/vlc.mo",
         "build/x64/locale/cgg/LC_MESSAGES/vlc.mo",
-        "build/x64/locale/ckb/LC_MESSAGES/vlc.mo",
         "build/x64/locale/co/LC_MESSAGES/vlc.mo",
         "build/x64/locale/cs/LC_MESSAGES/vlc.mo",
         "build/x64/locale/cy/LC_MESSAGES/vlc.mo",
@@ -313,6 +313,7 @@
         "build/x64/locale/el/LC_MESSAGES/vlc.mo",
         "build/x64/locale/en_GB/LC_MESSAGES/vlc.mo",
         "build/x64/locale/es/LC_MESSAGES/vlc.mo",
+        "build/x64/locale/es_MX/LC_MESSAGES/vlc.mo",
         "build/x64/locale/et/LC_MESSAGES/vlc.mo",
         "build/x64/locale/eu/LC_MESSAGES/vlc.mo",
         "build/x64/locale/fa/LC_MESSAGES/vlc.mo",
@@ -330,34 +331,32 @@
         "build/x64/locale/hr/LC_MESSAGES/vlc.mo",
         "build/x64/locale/hu/LC_MESSAGES/vlc.mo",
         "build/x64/locale/hy/LC_MESSAGES/vlc.mo",
-        "build/x64/locale/ia/LC_MESSAGES/vlc.mo",
         "build/x64/locale/id/LC_MESSAGES/vlc.mo",
         "build/x64/locale/is/LC_MESSAGES/vlc.mo",
         "build/x64/locale/it/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ja/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ka/LC_MESSAGES/vlc.mo",
+        "build/x64/locale/kab/LC_MESSAGES/vlc.mo",
         "build/x64/locale/kk/LC_MESSAGES/vlc.mo",
         "build/x64/locale/km/LC_MESSAGES/vlc.mo",
         "build/x64/locale/kn/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ko/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ks_IN/LC_MESSAGES/vlc.mo",
+        "build/x64/locale/ku_IQ/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ky/LC_MESSAGES/vlc.mo",
         "build/x64/locale/lg/LC_MESSAGES/vlc.mo",
         "build/x64/locale/lt/LC_MESSAGES/vlc.mo",
         "build/x64/locale/lv/LC_MESSAGES/vlc.mo",
         "build/x64/locale/mai/LC_MESSAGES/vlc.mo",
-        "build/x64/locale/mk/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ml/LC_MESSAGES/vlc.mo",
         "build/x64/locale/mn/LC_MESSAGES/vlc.mo",
         "build/x64/locale/mr/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ms/LC_MESSAGES/vlc.mo",
-        "build/x64/locale/my/LC_MESSAGES/vlc.mo",
         "build/x64/locale/nb/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ne/LC_MESSAGES/vlc.mo",
         "build/x64/locale/nl/LC_MESSAGES/vlc.mo",
         "build/x64/locale/nn/LC_MESSAGES/vlc.mo",
         "build/x64/locale/oc/LC_MESSAGES/vlc.mo",
-        "build/x64/locale/or/LC_MESSAGES/vlc.mo",
         "build/x64/locale/pa/LC_MESSAGES/vlc.mo",
         "build/x64/locale/pl/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ps/LC_MESSAGES/vlc.mo",
@@ -373,10 +372,9 @@
         "build/x64/locale/sv/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ta/LC_MESSAGES/vlc.mo",
         "build/x64/locale/te/LC_MESSAGES/vlc.mo",
-        "build/x64/locale/tet/LC_MESSAGES/vlc.mo",
         "build/x64/locale/th/LC_MESSAGES/vlc.mo",
-        "build/x64/locale/tl/LC_MESSAGES/vlc.mo",
         "build/x64/locale/tr/LC_MESSAGES/vlc.mo",
+        "build/x64/locale/tt/LC_MESSAGES/vlc.mo",
         "build/x64/locale/ug/LC_MESSAGES/vlc.mo",
         "build/x64/locale/uk/LC_MESSAGES/vlc.mo",
         "build/x64/locale/uz/LC_MESSAGES/vlc.mo",
@@ -484,9 +482,11 @@
         "build/x64/plugins/access/libaccess_imem_plugin.dll",
         "build/x64/plugins/access/libaccess_mms_plugin.dll",
         "build/x64/plugins/access/libaccess_realrtsp_plugin.dll",
+        "build/x64/plugins/access/libaccess_srt_plugin.dll",
         "build/x64/plugins/access/libaccess_wasapi_plugin.dll",
         "build/x64/plugins/access/libattachment_plugin.dll",
-        "build/x64/plugins/access/libbluray-j2se-1.0.2.jar",
+        "build/x64/plugins/access/libbluray-awt-j2se-1.2.0.jar",
+        "build/x64/plugins/access/libbluray-j2se-1.2.0.jar",
         "build/x64/plugins/access/libcdda_plugin.dll",
         "build/x64/plugins/access/libdcp_plugin.dll",
         "build/x64/plugins/access/libdshow_plugin.dll",
@@ -520,6 +520,7 @@
         "build/x64/plugins/access_output/libaccess_output_http_plugin.dll",
         "build/x64/plugins/access_output/libaccess_output_livehttp_plugin.dll",
         "build/x64/plugins/access_output/libaccess_output_shout_plugin.dll",
+        "build/x64/plugins/access_output/libaccess_output_srt_plugin.dll",
         "build/x64/plugins/access_output/libaccess_output_udp_plugin.dll",
         "build/x64/plugins/audio_filter/libaudio_format_plugin.dll",
         "build/x64/plugins/audio_filter/libaudiobargraph_a_plugin.dll",
@@ -558,6 +559,7 @@
         "build/x64/plugins/codec/liba52_plugin.dll",
         "build/x64/plugins/codec/libadpcm_plugin.dll",
         "build/x64/plugins/codec/libaes3_plugin.dll",
+        "build/x64/plugins/codec/libaom_plugin.dll",
         "build/x64/plugins/codec/libaraw_plugin.dll",
         "build/x64/plugins/codec/libaribsub_plugin.dll",
         "build/x64/plugins/codec/libavcodec_plugin.dll",
@@ -566,6 +568,7 @@
         "build/x64/plugins/codec/libcrystalhd_plugin.dll",
         "build/x64/plugins/codec/libcvdsub_plugin.dll",
         "build/x64/plugins/codec/libd3d11va_plugin.dll",
+        "build/x64/plugins/codec/libdav1d_plugin.dll",
         "build/x64/plugins/codec/libdca_plugin.dll",
         "build/x64/plugins/codec/libddummy_plugin.dll",
         "build/x64/plugins/codec/libdmo_plugin.dll",
@@ -610,6 +613,7 @@
         "build/x64/plugins/codec/libvorbis_plugin.dll",
         "build/x64/plugins/codec/libvpx_plugin.dll",
         "build/x64/plugins/codec/libwebvtt_plugin.dll",
+        "build/x64/plugins/codec/libx26410b_plugin.dll",
         "build/x64/plugins/codec/libx264_plugin.dll",
         "build/x64/plugins/codec/libx265_plugin.dll",
         "build/x64/plugins/codec/libzvbi_plugin.dll",
@@ -698,6 +702,7 @@
         "build/x64/plugins/mux/libmux_ts_plugin.dll",
         "build/x64/plugins/mux/libmux_wav_plugin.dll",
         "build/x64/plugins/packetizer/libpacketizer_a52_plugin.dll",
+        "build/x64/plugins/packetizer/libpacketizer_av1_plugin.dll",
         "build/x64/plugins/packetizer/libpacketizer_copy_plugin.dll",
         "build/x64/plugins/packetizer/libpacketizer_dirac_plugin.dll",
         "build/x64/plugins/packetizer/libpacketizer_dts_plugin.dll",
@@ -945,11 +950,11 @@
         "build/x86/locale/ach/LC_MESSAGES/vlc.mo",
         "build/x86/locale/af/LC_MESSAGES/vlc.mo",
         "build/x86/locale/am/LC_MESSAGES/vlc.mo",
+        "build/x86/locale/am_ET/LC_MESSAGES/vlc.mo",
         "build/x86/locale/an/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ar/LC_MESSAGES/vlc.mo",
         "build/x86/locale/as_IN/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ast/LC_MESSAGES/vlc.mo",
-        "build/x86/locale/az/LC_MESSAGES/vlc.mo",
         "build/x86/locale/be/LC_MESSAGES/vlc.mo",
         "build/x86/locale/bg/LC_MESSAGES/vlc.mo",
         "build/x86/locale/bn/LC_MESSAGES/vlc.mo",
@@ -958,8 +963,8 @@
         "build/x86/locale/brx/LC_MESSAGES/vlc.mo",
         "build/x86/locale/bs/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ca/LC_MESSAGES/vlc.mo",
+        "build/x86/locale/ca@valencia/LC_MESSAGES/vlc.mo",
         "build/x86/locale/cgg/LC_MESSAGES/vlc.mo",
-        "build/x86/locale/ckb/LC_MESSAGES/vlc.mo",
         "build/x86/locale/co/LC_MESSAGES/vlc.mo",
         "build/x86/locale/cs/LC_MESSAGES/vlc.mo",
         "build/x86/locale/cy/LC_MESSAGES/vlc.mo",
@@ -968,6 +973,7 @@
         "build/x86/locale/el/LC_MESSAGES/vlc.mo",
         "build/x86/locale/en_GB/LC_MESSAGES/vlc.mo",
         "build/x86/locale/es/LC_MESSAGES/vlc.mo",
+        "build/x86/locale/es_MX/LC_MESSAGES/vlc.mo",
         "build/x86/locale/et/LC_MESSAGES/vlc.mo",
         "build/x86/locale/eu/LC_MESSAGES/vlc.mo",
         "build/x86/locale/fa/LC_MESSAGES/vlc.mo",
@@ -985,34 +991,32 @@
         "build/x86/locale/hr/LC_MESSAGES/vlc.mo",
         "build/x86/locale/hu/LC_MESSAGES/vlc.mo",
         "build/x86/locale/hy/LC_MESSAGES/vlc.mo",
-        "build/x86/locale/ia/LC_MESSAGES/vlc.mo",
         "build/x86/locale/id/LC_MESSAGES/vlc.mo",
         "build/x86/locale/is/LC_MESSAGES/vlc.mo",
         "build/x86/locale/it/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ja/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ka/LC_MESSAGES/vlc.mo",
+        "build/x86/locale/kab/LC_MESSAGES/vlc.mo",
         "build/x86/locale/kk/LC_MESSAGES/vlc.mo",
         "build/x86/locale/km/LC_MESSAGES/vlc.mo",
         "build/x86/locale/kn/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ko/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ks_IN/LC_MESSAGES/vlc.mo",
+        "build/x86/locale/ku_IQ/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ky/LC_MESSAGES/vlc.mo",
         "build/x86/locale/lg/LC_MESSAGES/vlc.mo",
         "build/x86/locale/lt/LC_MESSAGES/vlc.mo",
         "build/x86/locale/lv/LC_MESSAGES/vlc.mo",
         "build/x86/locale/mai/LC_MESSAGES/vlc.mo",
-        "build/x86/locale/mk/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ml/LC_MESSAGES/vlc.mo",
         "build/x86/locale/mn/LC_MESSAGES/vlc.mo",
         "build/x86/locale/mr/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ms/LC_MESSAGES/vlc.mo",
-        "build/x86/locale/my/LC_MESSAGES/vlc.mo",
         "build/x86/locale/nb/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ne/LC_MESSAGES/vlc.mo",
         "build/x86/locale/nl/LC_MESSAGES/vlc.mo",
         "build/x86/locale/nn/LC_MESSAGES/vlc.mo",
         "build/x86/locale/oc/LC_MESSAGES/vlc.mo",
-        "build/x86/locale/or/LC_MESSAGES/vlc.mo",
         "build/x86/locale/pa/LC_MESSAGES/vlc.mo",
         "build/x86/locale/pl/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ps/LC_MESSAGES/vlc.mo",
@@ -1028,10 +1032,9 @@
         "build/x86/locale/sv/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ta/LC_MESSAGES/vlc.mo",
         "build/x86/locale/te/LC_MESSAGES/vlc.mo",
-        "build/x86/locale/tet/LC_MESSAGES/vlc.mo",
         "build/x86/locale/th/LC_MESSAGES/vlc.mo",
-        "build/x86/locale/tl/LC_MESSAGES/vlc.mo",
         "build/x86/locale/tr/LC_MESSAGES/vlc.mo",
+        "build/x86/locale/tt/LC_MESSAGES/vlc.mo",
         "build/x86/locale/ug/LC_MESSAGES/vlc.mo",
         "build/x86/locale/uk/LC_MESSAGES/vlc.mo",
         "build/x86/locale/uz/LC_MESSAGES/vlc.mo",
@@ -1139,9 +1142,11 @@
         "build/x86/plugins/access/libaccess_imem_plugin.dll",
         "build/x86/plugins/access/libaccess_mms_plugin.dll",
         "build/x86/plugins/access/libaccess_realrtsp_plugin.dll",
+        "build/x86/plugins/access/libaccess_srt_plugin.dll",
         "build/x86/plugins/access/libaccess_wasapi_plugin.dll",
         "build/x86/plugins/access/libattachment_plugin.dll",
-        "build/x86/plugins/access/libbluray-j2se-1.0.2.jar",
+        "build/x86/plugins/access/libbluray-awt-j2se-1.2.0.jar",
+        "build/x86/plugins/access/libbluray-j2se-1.2.0.jar",
         "build/x86/plugins/access/libcdda_plugin.dll",
         "build/x86/plugins/access/libdcp_plugin.dll",
         "build/x86/plugins/access/libdshow_plugin.dll",
@@ -1175,6 +1180,7 @@
         "build/x86/plugins/access_output/libaccess_output_http_plugin.dll",
         "build/x86/plugins/access_output/libaccess_output_livehttp_plugin.dll",
         "build/x86/plugins/access_output/libaccess_output_shout_plugin.dll",
+        "build/x86/plugins/access_output/libaccess_output_srt_plugin.dll",
         "build/x86/plugins/access_output/libaccess_output_udp_plugin.dll",
         "build/x86/plugins/audio_filter/libaudio_format_plugin.dll",
         "build/x86/plugins/audio_filter/libaudiobargraph_a_plugin.dll",
@@ -1213,6 +1219,7 @@
         "build/x86/plugins/codec/liba52_plugin.dll",
         "build/x86/plugins/codec/libadpcm_plugin.dll",
         "build/x86/plugins/codec/libaes3_plugin.dll",
+        "build/x86/plugins/codec/libaom_plugin.dll",
         "build/x86/plugins/codec/libaraw_plugin.dll",
         "build/x86/plugins/codec/libaribsub_plugin.dll",
         "build/x86/plugins/codec/libavcodec_plugin.dll",
@@ -1221,6 +1228,7 @@
         "build/x86/plugins/codec/libcrystalhd_plugin.dll",
         "build/x86/plugins/codec/libcvdsub_plugin.dll",
         "build/x86/plugins/codec/libd3d11va_plugin.dll",
+        "build/x86/plugins/codec/libdav1d_plugin.dll",
         "build/x86/plugins/codec/libdca_plugin.dll",
         "build/x86/plugins/codec/libddummy_plugin.dll",
         "build/x86/plugins/codec/libdmo_plugin.dll",
@@ -1265,6 +1273,7 @@
         "build/x86/plugins/codec/libvorbis_plugin.dll",
         "build/x86/plugins/codec/libvpx_plugin.dll",
         "build/x86/plugins/codec/libwebvtt_plugin.dll",
+        "build/x86/plugins/codec/libx26410b_plugin.dll",
         "build/x86/plugins/codec/libx264_plugin.dll",
         "build/x86/plugins/codec/libx265_plugin.dll",
         "build/x86/plugins/codec/libzvbi_plugin.dll",
@@ -1353,6 +1362,7 @@
         "build/x86/plugins/mux/libmux_ts_plugin.dll",
         "build/x86/plugins/mux/libmux_wav_plugin.dll",
         "build/x86/plugins/packetizer/libpacketizer_a52_plugin.dll",
+        "build/x86/plugins/packetizer/libpacketizer_av1_plugin.dll",
         "build/x86/plugins/packetizer/libpacketizer_copy_plugin.dll",
         "build/x86/plugins/packetizer/libpacketizer_dirac_plugin.dll",
         "build/x86/plugins/packetizer/libpacketizer_dts_plugin.dll",
@@ -1494,7 +1504,8 @@
         "build/x86/plugins/visualization/libvisual_plugin.dll",
         "build/x86/vlc.lib",
         "build/x86/vlccore.lib",
-        "videolan.libvlc.windows.3.0.0.nupkg.sha512",
+        "icon.png",
+        "videolan.libvlc.windows.3.0.10.nupkg.sha512",
         "videolan.libvlc.windows.nuspec"
       ]
     },
@@ -1550,8 +1561,8 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "FFME.Windows >= 4.2.330",
-      "SciChart3D >= 6.0.2.13028",
-      "VideoLAN.LibVLC.Windows >= 3.0.0",
+      "SciChart3D >= 6.1.1.13136",
+      "VideoLAN.LibVLC.Windows >= 3.0.10",
       "Vlc.DotNet.Core >= 3.0.0",
       "Vlc.DotNet.Wpf >= 3.0.0"
     ]
@@ -1562,11 +1573,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\joeyf\\OneDrive\\Desktop\\source\\repos\\OpticalFlowDashBoard\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj",
+      "projectUniqueName": "C:\\Users\\joeyf\\Documents\\prjDeadReckon\\DashBoard-WPF\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj",
       "projectName": "OpticalFlowDashBoard",
-      "projectPath": "C:\\Users\\joeyf\\OneDrive\\Desktop\\source\\repos\\OpticalFlowDashBoard\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj",
+      "projectPath": "C:\\Users\\joeyf\\Documents\\prjDeadReckon\\DashBoard-WPF\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj",
       "packagesPath": "C:\\Users\\joeyf\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\joeyf\\OneDrive\\Desktop\\source\\repos\\OpticalFlowDashBoard\\OpticalFlowDashBoard\\obj\\",
+      "outputPath": "C:\\Users\\joeyf\\Documents\\prjDeadReckon\\DashBoard-WPF\\OpticalFlowDashBoard\\obj\\",
       "projectStyle": "PackageReference",
       "crossTargeting": true,
       "configFilePaths": [
@@ -1600,11 +1611,11 @@
           },
           "SciChart3D": {
             "target": "Package",
-            "version": "[6.0.2.13028, )"
+            "version": "[6.1.1.13136, )"
           },
           "VideoLAN.LibVLC.Windows": {
             "target": "Package",
-            "version": "[3.0.0, )"
+            "version": "[3.0.10, )"
           },
           "Vlc.DotNet.Core": {
             "target": "Package",

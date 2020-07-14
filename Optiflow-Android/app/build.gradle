@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     defaultConfig {
         applicationId "com.example.optiflow"
         minSdkVersion 24
-        targetSdkVersion 29
+        targetSdkVersion 27
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -21,6 +21,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    buildToolsVersion '29.0.3'
 }
 
 repositories {
@@ -55,8 +56,8 @@ dependencies {
     implementation(group: 'com.scichart.library', name: 'extensions3d', version: '3.0.0.4253', ext: 'aar')
 
     // Realsense and OpenCV
-    //noinspection GradleDependency DO NOT UPDATE TO 2.34 That package has serious performance issues.
-    implementation 'com.intel.realsense:librealsense:2.31.0@aar'
+    //noinspection GradleDependency 2.36
+    implementation 'com.intel.realsense:librealsense:2.36.0@aar'
     implementation project(path: ':openCVLibrary343')
 
     //Lib Streaming

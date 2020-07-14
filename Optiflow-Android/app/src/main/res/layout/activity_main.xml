@@ -261,6 +261,7 @@
                     android:text="Real sense Color View" />
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/phoneCameraTag"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"

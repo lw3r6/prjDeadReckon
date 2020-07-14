@@ -23,6 +23,7 @@ using System.Reflection;
 using Vlc.DotNet.Wpf;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
+using SciChart.Examples.ExternalDependencies.Data;
 
 namespace OpticalFlowDashBoard
 {
@@ -35,16 +36,22 @@ namespace OpticalFlowDashBoard
         string SERVER_IP = "";
         OpticalFlowServer udpServer = null;
         private const String FILE_NAME = "stream.sdp";
+
         string contents = "v=0 o=- 0 0 IN IP4 null\n" +
-                "s=Unnamed\n" +
-                "i=N/A\n" +
-                "c=IN IP4 192.168.0.177\n" +
-                "t=0 0\n" +
-                "a=recvonly\n" +
-                "m=video 5006 RTP/AVP 96\n" +
-                "a=rtpmap:96 H264/90000\n" +
-                "a=fmtp:96 packetization-mode=1;profile-level-id=42c029;sprop-parameter-sets=Z0LAKY1oFB+gHhEI1A==,aM4BqDXI;\n" +
-                "a=control:trackID=1";
+            "s=Unnamed\n" +
+            "i = N / A\n" +
+            "c=IN IP4 192.168.0.177\n" +
+            "t=0 0\n" +
+            "a=recvonly\n" +
+            "m = audio 5004 RTP/AVP 96\n" +
+            "a=rtpmap:96 AMR/8000\n" +
+            "a=fmtp:96 octet-align=1;\n" +
+            "a=control:trackID=0\n" +
+            "m=video 5006 RTP/AVP 96\n" +
+            "a=rtpmap:96 H264/90000\n" +
+            "a=fmtp:96 packetization-mode=1;profile-level-id=4d4029;sprop-parameter-sets=Z01AKY1oFB+gHhEI1A==,aO4BqDXo;\n" +
+            "a=control:trackID=1";
+        
 
         IXyDataSeries<float, float> xWorldAcc;
         IXyDataSeries<float, float> yWorldAcc;
@@ -61,8 +68,13 @@ namespace OpticalFlowDashBoard
         IXyDataSeries<float, float> xDeviceVel;
         IXyDataSeries<float, float> yDeviceVel;
         IXyDataSeries<float, float> zDeviceVel;
+        
+        IXyDataSeries<float, float> xRealVel;
+        IXyDataSeries<float, float> yRealVel;
+        IXyDataSeries<float, float> zRealVel;
 
-        XyzDataSeries3D<float, float, float> positionVec;
+        XyzDataSeries3D<double> positionVec;
+        XyzDataSeries3D<double> realSensePositionVec;
 
         public MainWindow()
         {
@@ -111,13 +123,24 @@ namespace OpticalFlowDashBoard
             yDeviceVel = new XyDataSeries<float, float>();
             zDeviceVel = new XyDataSeries<float, float>();
 
-            positionVec = new XyzDataSeries3D<float, float, float>();
+            xRealVel = new XyDataSeries<float, float>();
+            yRealVel = new XyDataSeries<float, float>();
+            zRealVel = new XyDataSeries<float, float>();
+
+            positionVec = new XyzDataSeries3D<double>();
+            realSensePositionVec = new XyzDataSeries3D<double>();
+
+
             //a.Move((int)(myCanvas.Width/2), (int)(myCanvas.Height/2));
 
-            udpServer = new OpticalFlowServer(optiflowCanvas, consoleOutput, PORT_NO, SERVER_IP, new IXyDataSeries<float, float>[] { xWorldAcc, yWorldAcc, zWorldAcc },
+            udpServer = new OpticalFlowServer(optiflowCanvas, consoleOutput, PORT_NO, SERVER_IP, 
+                                                    new IXyDataSeries<float, float>[] { xWorldAcc, yWorldAcc, zWorldAcc },
                                                     new IXyDataSeries<float, float>[] { xDeviceAcc, yDeviceAcc, zDeviceAcc },
                                                     new IXyDataSeries<float, float>[] { xWorldVel, yWorldVel, zWorldVel },
-                                                    new IXyDataSeries<float, float>[] { xDeviceVel, yDeviceVel, zDeviceVel });
+                                                    new IXyDataSeries<float, float>[] { xDeviceVel, yDeviceVel, zDeviceVel },
+                                                    new IXyDataSeries<float, float>[] { xRealVel, yRealVel, zRealVel },
+                                                    positionVec, 
+                                                    realSensePositionVec);
 
 
             Thread test = new Thread(new ThreadStart(udpServer.startServer));
@@ -129,7 +152,6 @@ namespace OpticalFlowDashBoard
             var host = Dns.GetHostEntry(Dns.GetHostName());
             return (from ip in host.AddressList where ip.AddressFamily == AddressFamily.InterNetwork select ip.ToString()).ToList();
         }
-
 
         int i = 0;
         private void OnLoaded(object sender, RoutedEventArgs routedEventArgs)
@@ -150,7 +172,13 @@ namespace OpticalFlowDashBoard
             YDeviceVel.DataSeries = yDeviceVel;
             ZDeviceVel.DataSeries = zDeviceVel;
 
+            XRealSenseVel.DataSeries = xRealVel;
+            YRealSenseVel.DataSeries = yRealVel;
+            ZRealSenseVel.DataSeries = zRealVel;
+
             PositionGraph.DataSeries = positionVec;
+            RealSensePositionGraph.DataSeries = realSensePositionVec;
+
 
             var timer = new DispatcherTimer(DispatcherPriority.Render);
             timer.Interval = TimeSpan.FromMilliseconds(100);
@@ -173,13 +201,16 @@ namespace OpticalFlowDashBoard
                 using (yDeviceVel.SuspendUpdates())
                 using (zDeviceVel.SuspendUpdates())
 
-                //using (positionVec.SuspendUpdates())
+                using (xRealVel.SuspendUpdates())
+                using (yRealVel.SuspendUpdates())
+                using (zRealVel.SuspendUpdates())
 
                 {
                     sciChartSurface.ZoomExtents();
                     sciChartSurface1.ZoomExtents();
                     sciChartSurface2.ZoomExtents();
                     sciChartSurface3.ZoomExtents();
+                    sciRealSenseVel.ZoomExtents();
 
                     RotateTransform rotateTransform =
                     new RotateTransform(udpServer.getCompassAngle() + 90);

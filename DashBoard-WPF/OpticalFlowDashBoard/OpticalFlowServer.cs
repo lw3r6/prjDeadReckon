@@ -12,6 +12,9 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Shapes;
 using System.Windows;
+using SciChart.Charting3D.Model;
+using Vlc.DotNet.Core.Interops.Signatures;
+using System.Windows.Media;
 
 namespace OpticalFlowDashBoard
 {
@@ -23,6 +26,9 @@ namespace OpticalFlowDashBoard
         private IXyDataSeries<float, float>[] deviceAcc;
         private IXyDataSeries<float, float>[] worldVel;
         private IXyDataSeries<float, float>[] deviceVel;
+        private IXyDataSeries<float, float>[] realSenseVel;
+        private XyzDataSeries3D<double> positionVec;
+        private XyzDataSeries3D<double> realSensePositionVec;
 
         public double compassAngle = 0;
         private double cameraPointingAngle = 0;
@@ -31,12 +37,23 @@ namespace OpticalFlowDashBoard
         private Canvas canvas;
         
 
-        public OpticalFlowServer(Canvas canvasIn, RichTextBox windowConsole, int port_Number, string IP, IXyDataSeries<float, float>[] xyDataSeries1, IXyDataSeries<float, float>[] xyDataSeries2, IXyDataSeries<float, float>[] xyDataSeries3, IXyDataSeries<float, float>[] xyDataSeries4)
+        public OpticalFlowServer(Canvas canvasIn, 
+            RichTextBox windowConsole, int port_Number, string IP, 
+            IXyDataSeries<float, float>[] worldAcc, 
+            IXyDataSeries<float, float>[] deviceAcc, 
+            IXyDataSeries<float, float>[] worldVel, 
+            IXyDataSeries<float, float>[] deviceVel, 
+            IXyDataSeries<float, float>[] realSenseVel, 
+            XyzDataSeries3D<double> positionDataSeries,
+            XyzDataSeries3D<double> realSensePositionVec)
         {
-            this.worldAcc = xyDataSeries1;
-            this.deviceAcc = xyDataSeries2;
-            this.worldVel = xyDataSeries3;
-            this.deviceVel = xyDataSeries4;
+            this.worldAcc = worldAcc;
+            this.deviceAcc = deviceAcc;
+            this.worldVel = worldVel;
+            this.deviceVel = deviceVel;
+            this.realSenseVel = realSenseVel;
+            this.positionVec = positionDataSeries;
+            this.realSensePositionVec = realSensePositionVec;
             this.windowConsole = windowConsole;
             this.PORT_NO = port_Number;
             this.SERVER_IP = IP;
@@ -110,11 +127,21 @@ namespace OpticalFlowDashBoard
                     if (messageUsed.StartsWith("DataPush: "))
                     {
                         processGraphData(messageUsed);
-                    } else if (messageUsed.StartsWith("ImageFile: ")) {
+                    }
+                    else if (messageUsed.StartsWith("ImageFile: "))
+                    {
 
-                    } else if (messageUsed.StartsWith("OptiFlow: ")) {
+                    }
+                    else if (messageUsed.StartsWith("OptiFlow: "))
+                    {
                         processOptiFlowData(messageUsed);
-                    } else { 
+                    }
+                    else if (messageUsed.StartsWith("RealSenseData: "))
+                    {
+                        processRealSenseData(messageUsed);
+                    }
+                    else
+                    {
                         Trace.WriteLine("Unknown command: " + Encoding.ASCII.GetString(data, 0, data.Length));
                     }
 
@@ -132,6 +159,7 @@ namespace OpticalFlowDashBoard
             }
         }
 
+        int count = 0;
         private void processGraphData(String messageIn)
         {
             messageIn = messageIn.Substring(10);
@@ -154,13 +182,40 @@ namespace OpticalFlowDashBoard
             worldVel[1].Append(worldVel[1].Count, float.Parse(data1[10]));
             worldVel[2].Append(worldVel[2].Count, float.Parse(data1[11]));
 
+            
+            if (count % 10 == 0)
+            {
+                var random = new Random(0);
+                Color? randomColor = Color.FromArgb(0xFF, (byte)random.Next(50, 255), (byte)random.Next(50, 255), (byte)random.Next(50, 255));
+                positionVec.Append(float.Parse(data1[12]), float.Parse(data1[13]), float.Parse(data1[14]), new PointMetadata3D(randomColor, 1));
+                positionVec.OnDataSeriesChanged(DataSeriesUpdate.DataChanged, DataSeriesAction.Update);
+            }
+
+            //positionVec.IsDirty = true;
 
             compassAngle = float.Parse(data1[15]);
             deviceTiltAngle = float.Parse(data1[16]);
             cameraPointingAngle = float.Parse(data1[17]) - 90;
-
-            //positionVec.Append(float.Parse(data1[15]), float.Parse(data1[16]), float.Parse(data1[17]));
         }
+
+        private void processRealSenseData(String messageIn)
+        {
+            messageIn = messageIn.Substring(15);
+            string[] data1 = messageIn.Split(",");
+
+            //Append(deviceAcc[0].Count, float.Parse(data1[0]));
+            realSenseVel[0].Append(realSenseVel[0].Count, float.Parse(data1[0]));
+            realSenseVel[1].Append(realSenseVel[1].Count, float.Parse(data1[1]));
+            realSenseVel[2].Append(realSenseVel[2].Count, (float)(float.Parse(data1[2])/10000.0));
+
+            var random = new Random(0);
+            Color? randomColor = Color.FromArgb(0xFF, (byte)random.Next(50, 255), (byte)random.Next(50, 255), (byte)random.Next(50, 255));
+            realSensePositionVec.Append(float.Parse(data1[3]), float.Parse(data1[4]), float.Parse(data1[5]), new PointMetadata3D(randomColor, 1));
+            realSensePositionVec.OnDataSeriesChanged(DataSeriesUpdate.DataChanged, DataSeriesAction.Update);
+         
+
+        }
+
 
         private void processOptiFlowData(String messageIn)
         {
@@ -174,11 +229,11 @@ namespace OpticalFlowDashBoard
                 for (int i = 0; i < data1.Length; i += 6)
                 {
 
-                    double x1 = int.Parse(data1[0 + i]) / 640.0;
-                    double y1 = int.Parse(data1[1 + i]) / 480.0;
+                    double x1 = int.Parse(data1[0 + i]) / 480.0;
+                    double y1 = int.Parse(data1[1 + i]) / 270.0;
 
-                    double x2 = int.Parse(data1[3 + i]) / 640.0;
-                    double y2 = int.Parse(data1[4 + i]) / 480.0;
+                    double x2 = int.Parse(data1[3 + i]) / 480.0;
+                    double y2 = int.Parse(data1[4 + i]) / 270.0;
 
                     Line line = new Line();
                     line.Visibility = System.Windows.Visibility.Visible;
@@ -191,7 +246,6 @@ namespace OpticalFlowDashBoard
                     this.canvas.Children.Add(line);
                 }
             });
-            //positionVec.Append(float.Parse(data1[15]), float.Parse(data1[16]), float.Parse(data1[17]));
         }
 
     }

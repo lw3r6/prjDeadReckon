@@ -28,10 +28,10 @@ public class Vector {
     @NonNull
     @Override
     public String toString() {
-        return String.format("%d,%d,%d,%d,%d,%d", prevX, prevY, prevZ, X, Y, Z);
+        return String.format("%d,%d,%d:%d,%d,%d", prevX, prevY, prevZ, X, Y, Z);
     }
 
     public int[] changeVec() {
-        return new int[]{changeX, changeY, changeZ};
+        return new int[]{changeX, changeY, (int) changeZ};
     }
 }

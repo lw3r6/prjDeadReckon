@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\joeyf\\OneDrive\\Desktop\\source\\repos\\OpticalFlowDashBoard\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj": {}
+    "C:\\Users\\joeyf\\Documents\\prjDeadReckon\\DashBoard-WPF\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj": {}
   },
   "projects": {
-    "C:\\Users\\joeyf\\OneDrive\\Desktop\\source\\repos\\OpticalFlowDashBoard\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj": {
+    "C:\\Users\\joeyf\\Documents\\prjDeadReckon\\DashBoard-WPF\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\joeyf\\OneDrive\\Desktop\\source\\repos\\OpticalFlowDashBoard\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj",
+        "projectUniqueName": "C:\\Users\\joeyf\\Documents\\prjDeadReckon\\DashBoard-WPF\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj",
         "projectName": "OpticalFlowDashBoard",
-        "projectPath": "C:\\Users\\joeyf\\OneDrive\\Desktop\\source\\repos\\OpticalFlowDashBoard\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj",
+        "projectPath": "C:\\Users\\joeyf\\Documents\\prjDeadReckon\\DashBoard-WPF\\OpticalFlowDashBoard\\OpticalFlowDashBoard.csproj",
         "packagesPath": "C:\\Users\\joeyf\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\joeyf\\OneDrive\\Desktop\\source\\repos\\OpticalFlowDashBoard\\OpticalFlowDashBoard\\obj\\",
+        "outputPath": "C:\\Users\\joeyf\\Documents\\prjDeadReckon\\DashBoard-WPF\\OpticalFlowDashBoard\\obj\\",
         "projectStyle": "PackageReference",
         "crossTargeting": true,
         "configFilePaths": [
@@ -45,11 +45,11 @@
             },
             "SciChart3D": {
               "target": "Package",
-              "version": "[6.0.2.13028, )"
+              "version": "[6.1.1.13136, )"
             },
             "VideoLAN.LibVLC.Windows": {
               "target": "Package",
-              "version": "[3.0.0, )"
+              "version": "[3.0.10, )"
             },
             "Vlc.DotNet.Core": {
               "target": "Package",

@@ -5,15 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:s="http://schemas.abtsoftware.co.uk/scichart"
         xmlns:s3D="http://schemas.abtsoftware.co.uk/scichart3D"
-        xmlns:wpf="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf"
-     
-        
+        xmlns:wpf="clr-namespace:Vlc.DotNet.Wpf;assembly=Vlc.DotNet.Wpf" xmlns:ext="http://schemas.abtsoftware.co.uk/scichart/exampleExternals"
         Title="OpticalFlow Dashboard" Width="1920" Height="1080">
     <Grid x:Name="LayoutRoot" Background="#555555" Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="6*" />
+            <ColumnDefinition Width="6*"/>
+            <ColumnDefinition Width="6*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="5*" />
@@ -25,6 +23,7 @@
             <RowDefinition Height="5*" />
             <RowDefinition Height="35*"/>
         </Grid.RowDefinitions>
+        
         <Label Content="Console" HorizontalAlignment="Center" VerticalAlignment="Bottom" Height="26" Width="38" Margin="0,0,0,3"/>
         <RichTextBox x:Name="consoleOutput" Grid.Row="1" Margin="0,0,0,4"/>
 
@@ -82,6 +81,39 @@
             </s:SciChartSurface.Annotations>
         </s:SciChartSurface>
 
+        <Label Content="Estimated Position Change of device" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+        <s3D:SciChart3DSurface ShowLicensingWarnings="False"
+                        IsFpsCounterVisible="True"
+                         IsAxisCubeVisible="True"
+                         IsXyzGizmoVisible="True" Grid.Column="0" Grid.Row="3">
+            <s3D:SciChart3DSurface.ChartModifier>
+                <s3D:ModifierGroup3D>
+                    <!-- Add the MouseWheelZoomModifier3D to the chart. Optional. add other modifiers -->
+                    <s3D:MouseWheelZoomModifier3D MouseWheelSensitivity="20"/>
+                    <s3D:OrbitModifier3D IsEnabled="True" ExecuteOn="MouseLeftButton"/>
+                </s3D:ModifierGroup3D>
+            </s3D:SciChart3DSurface.ChartModifier>
+            <s3D:SciChart3DSurface.Camera>
+                <s3D:Camera3D ZoomToFitOnAttach="True" />
+            </s3D:SciChart3DSurface.Camera>
+            <s3D:SciChart3DSurface.RenderableSeries>
+                <s3D:ScatterRenderableSeries3D x:Name="PositionGraph">
+                    <s3D:ScatterRenderableSeries3D.PointMarker>
+                        <s3D:EllipsePointMarker3D Fill="#77ADFF2F"/>
+                    </s3D:ScatterRenderableSeries3D.PointMarker>
+                </s3D:ScatterRenderableSeries3D>
+            </s3D:SciChart3DSurface.RenderableSeries>
+            <s3D:SciChart3DSurface.XAxis>
+                <s3D:NumericAxis3D GrowBy="0.1,0.1" AutoRange="Always"/>
+            </s3D:SciChart3DSurface.XAxis>
+            <s3D:SciChart3DSurface.YAxis>
+                <s3D:NumericAxis3D GrowBy="0.1,0.1" AutoRange="Always" NegativeSideClipping="VisibleRange" PositiveSideClipping="VisibleRange"/>
+            </s3D:SciChart3DSurface.YAxis>
+            <s3D:SciChart3DSurface.ZAxis>
+                <s3D:NumericAxis3D GrowBy="0.1,0.1" AutoRange="Always" />
+            </s3D:SciChart3DSurface.ZAxis>
+        </s3D:SciChart3DSurface>
+        
         <Label Content="Velocity Data in relation to world plane" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2"/>
         <s:SciChartSurface x:Name="sciChartSurface2" Grid.Column="1" Grid.Row="3">
 
@@ -136,13 +168,84 @@
             </s:SciChartSurface.Annotations>
         </s:SciChartSurface>
 
-        <Label Content="Estimated Position Change of device" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="2"/>
+        <Label Content="Estimated Position Change of device Realsense" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
         <s3D:SciChart3DSurface ShowLicensingWarnings="False"
                         IsFpsCounterVisible="True"
                          IsAxisCubeVisible="True"
-                         IsXyzGizmoVisible="True" Grid.Column="0" Grid.Row="3">
+                         IsXyzGizmoVisible="True" Grid.Column="0" Grid.Row="5">
+            <s3D:SciChart3DSurface.ChartModifier>
+                <s3D:ModifierGroup3D>
+                    <!-- Add the MouseWheelZoomModifier3D to the chart. Optional. add other modifiers -->
+                    <s3D:MouseWheelZoomModifier3D MouseWheelSensitivity="20"/>
+                    <s3D:OrbitModifier3D IsEnabled="True" ExecuteOn="MouseLeftButton"/>
+                </s3D:ModifierGroup3D>
+            </s3D:SciChart3DSurface.ChartModifier>
+            <s3D:SciChart3DSurface.Camera>
+                <s3D:Camera3D ZoomToFitOnAttach="True" />
+            </s3D:SciChart3DSurface.Camera>
             <s3D:SciChart3DSurface.RenderableSeries>
-                <s3D:ScatterRenderableSeries3D x:Name="PositionGraph">
+                <s3D:ScatterRenderableSeries3D x:Name="RealSensePositionGraph">
+                    <s3D:ScatterRenderableSeries3D.PointMarker>
+                        <s3D:EllipsePointMarker3D Fill="#77ADFF2F"/>
+                    </s3D:ScatterRenderableSeries3D.PointMarker>
+                </s3D:ScatterRenderableSeries3D>
+            </s3D:SciChart3DSurface.RenderableSeries>
+            <s3D:SciChart3DSurface.XAxis>
+                <s3D:NumericAxis3D GrowBy="0.1,0.1" AutoRange="Always"/>
+            </s3D:SciChart3DSurface.XAxis>
+            <s3D:SciChart3DSurface.YAxis>
+                <s3D:NumericAxis3D GrowBy="0.1,0.1" AutoRange="Always" NegativeSideClipping="VisibleRange" PositiveSideClipping="VisibleRange"/>
+            </s3D:SciChart3DSurface.YAxis>
+            <s3D:SciChart3DSurface.ZAxis>
+                <s3D:NumericAxis3D GrowBy="0.1,0.1" AutoRange="Always" />
+            </s3D:SciChart3DSurface.ZAxis>
+        </s3D:SciChart3DSurface>
+
+        <Label Content="Velocity Data from realsense camera" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="4"/>
+        <s:SciChartSurface x:Name="sciRealSenseVel" Grid.Column="1" Grid.Row="5" Margin="0,0,0,0">
+
+            <!--  Define RenderableSeries  -->
+            <!-- where xmlns:s="http://schemas.abtsoftware.co.uk/scichart" -->
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastLineRenderableSeries x:Name="XRealSenseVel" Stroke="#7A2715"/>
+                <s:FastLineRenderableSeries x:Name="YRealSenseVel" Stroke="#74B3CE"/>
+                <s:FastLineRenderableSeries x:Name="ZRealSenseVel" Stroke="#FFF59A"/>
+            </s:SciChartSurface.RenderableSeries>
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis AxisTitle="Number of Samples (per Series)"/>
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxis>
+                <s:NumericAxis AxisTitle="Value"/>
+            </s:SciChartSurface.YAxis>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:RubberBandXyZoomModifier />
+                    <s:ZoomExtentsModifier />
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+            <s:SciChartSurface.Annotations>
+                <s:TextAnnotation Text="Hello world!" X1="5.0" Y1="5"/>
+            </s:SciChartSurface.Annotations>
+        </s:SciChartSurface>
+
+        <Label Content="Camera view" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
+        <Grid Name="myGrid" Grid.Column="2" Grid.Row="5" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Canvas Name="optiflowCanvas" Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" Background="White"/>
+            <wpf:VlcControl x:Name="vlcPlayer" Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" Grid.ColumnSpan="1"/>
+
+        </Grid>
+
+        <Label Content="Combined Pos from realsense camera" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="6"/>
+        <s3D:SciChart3DSurface ShowLicensingWarnings="False"
+                        IsFpsCounterVisible="True"
+                         IsAxisCubeVisible="True"
+                         IsXyzGizmoVisible="True" Grid.Column="0" Grid.Row="7">
+            <s3D:SciChart3DSurface.RenderableSeries>
+                <s3D:ScatterRenderableSeries3D x:Name="CombPositionGraph">
                     <s3D:ScatterRenderableSeries3D.PointMarker>
                         <s3D:EllipsePointMarker3D Fill="#77ADFF2F"/>
                     </s3D:ScatterRenderableSeries3D.PointMarker>
@@ -159,42 +262,70 @@
             </s3D:SciChart3DSurface.ZAxis>
         </s3D:SciChart3DSurface>
 
-        <Label Content="Direction of device" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0" Grid.Row="4"/>
-        <Canvas Name="myCanvas" Grid.Column="0" Grid.Row="5" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="North" Canvas.Left="-20" Canvas.Top="-88"/>
-            <Line X1="0" X2="0" Y1="-60" Y2="60" StrokeThickness="1" Stroke="White"/>
-            <Line X1="-60" X2="60" Y1="0" Y2="0" StrokeThickness="1" Stroke="White"/>
+        <Label Content="Combined Vel from realsense camera" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1" Grid.Row="6"/>
+        <s:SciChartSurface x:Name="sciCombVel" Grid.Column="1" Grid.Row="7" Margin="0,0,0,0">
 
-            <Polygon x:Name="arrow" Points="
+            <!--  Define RenderableSeries  -->
+            <!-- where xmlns:s="http://schemas.abtsoftware.co.uk/scichart" -->
+            <s:SciChartSurface.RenderableSeries>
+                <s:FastLineRenderableSeries x:Name="XCombVel" Stroke="#7A2715"/>
+                <s:FastLineRenderableSeries x:Name="YCombVel" Stroke="#74B3CE"/>
+                <s:FastLineRenderableSeries x:Name="ZCombVel" Stroke="#FFF59A"/>
+            </s:SciChartSurface.RenderableSeries>
+            <s:SciChartSurface.XAxis>
+                <s:NumericAxis AxisTitle="Number of Samples (per Series)"/>
+            </s:SciChartSurface.XAxis>
+            <s:SciChartSurface.YAxis>
+                <s:NumericAxis AxisTitle="Value"/>
+            </s:SciChartSurface.YAxis>
+            <s:SciChartSurface.ChartModifier>
+                <s:ModifierGroup>
+                    <s:RubberBandXyZoomModifier />
+                    <s:ZoomExtentsModifier />
+                </s:ModifierGroup>
+            </s:SciChartSurface.ChartModifier>
+            <s:SciChartSurface.Annotations>
+                <s:TextAnnotation Text="Hello world!" X1="5.0" Y1="5"/>
+            </s:SciChartSurface.Annotations>
+        </s:SciChartSurface>
+
+        <Grid Grid.Row="6" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Label Content="Direction of device" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="0"/>
+            <Label Content="Device Tilt (Camera up / down)" Grid.Column="1"/>
+            <Label Content="Device Tilt (ChargingPort up / down)" Grid.Column="2"/>
+        </Grid>
+        <Grid Grid.Row="7" Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <Canvas Name="myCanvas" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <Label Content="North" Canvas.Left="-20" Canvas.Top="-88"/>
+                <Line X1="0" X2="0" Y1="-60" Y2="60" StrokeThickness="1" Stroke="White"/>
+                <Line X1="-60" X2="60" Y1="0" Y2="0" StrokeThickness="1" Stroke="White"/>
+
+                <Polygon x:Name="arrow" Points="
                      -3,-45 -3,35 
                      -15,35 0,45 
                      15,35 3,35 
                      3,-45"
         Fill="Black"
         Stroke="Black" StrokeThickness="1">
-                <Polygon.RenderTransform>
-                    <RotateTransform CenterX="0" CenterY="0" Angle="0" />
-                </Polygon.RenderTransform>
+                    <Polygon.RenderTransform>
+                        <RotateTransform CenterX="0" CenterY="0" Angle="0" />
+                    </Polygon.RenderTransform>
 
-            </Polygon>
+                </Polygon>
 
-        </Canvas>
-
-        <Grid Grid.Row="4" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Label Content="Device Tilt (Camera up / down)" Grid.Column="0"/>
-            <Label Content="Device Tilt (ChargingPort up / down)" Grid.Column="1"/>
-        </Grid>
-
-        <Grid Grid.Row="5" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Canvas Name="camDirectionCanvas" Grid.Column="0" Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            </Canvas>
+            <Canvas Name="camDirectionCanvas" Grid.Column="1" Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Line X1="0" X2="0" Y1="-75" Y2="75" StrokeThickness="1" Stroke="White"/>
 
                 <Polygon x:Name="CamArrow" Points="
@@ -209,7 +340,7 @@
                 </Polygon>
 
             </Canvas>
-            <Canvas Name="camRotationCanvas" Grid.Column="1" Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Canvas Name="camRotationCanvas" Grid.Column="2" Grid.Row="0" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <Line X1="-70" X2="70" Y1="0" Y2="0" StrokeThickness="1" Stroke="White"/>
 
                 <Polygon x:Name="CamSpin" Points="
@@ -226,18 +357,6 @@
                 </Polygon>
 
             </Canvas>
-
-        </Grid>
-
-        <Label Content="Camera view" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2" Grid.Row="4"/>
-
-        <Grid Name="myGrid" Grid.Column="2" Grid.Row="5" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"/>
-                <ColumnDefinition Width="1*"/>
-            </Grid.ColumnDefinitions>
-            <Canvas Name="optiflowCanvas" Grid.Row="0" Grid.Column="0" Margin="0,0,0,0" Background="White"/>
-            <wpf:VlcControl x:Name="vlcPlayer" Grid.Row="0" Grid.Column="1" Margin="0,0,0,0" Grid.ColumnSpan="1"/>
 
         </Grid>
 
