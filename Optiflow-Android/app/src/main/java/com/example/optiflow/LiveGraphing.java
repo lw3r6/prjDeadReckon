@@ -116,7 +116,7 @@ public class LiveGraphing extends Activity implements View.OnClickListener, Sess
         mSession = SessionBuilder.getInstance()
                 .setCallback(this)
                 .setSurfaceView(mSurfaceView)
-                .setPreviewOrientation(90)
+                .setPreviewOrientation(270)
                 .setContext(getApplicationContext())
                 .setVideoEncoder(SessionBuilder.VIDEO_H264)
                 .setVideoQuality(new VideoQuality(320,240,30,500000))

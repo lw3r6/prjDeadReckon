@@ -57,7 +57,7 @@ class Optiflowmodel {
 
         old_frame = matrixIn.clone();
         Imgproc.cvtColor(old_frame, frame_gray, Imgproc.COLOR_BGR2GRAY);
-        Imgproc.goodFeaturesToTrack(old_gray, p0MatofPoint, corners, qualityLevel, 15, new Mat(), 3, false, 0.04);
+        Imgproc.goodFeaturesToTrack(old_gray, p0MatofPoint, corners, qualityLevel, 10, new Mat(), 3, false, 0.04);
         p0 = new MatOfPoint2f(p0MatofPoint.toArray());
         p1 = new MatOfPoint2f();
         mask = Mat.zeros(old_frame.size(), old_frame.type());

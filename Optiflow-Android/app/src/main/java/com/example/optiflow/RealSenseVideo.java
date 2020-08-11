@@ -1,5 +1,6 @@
 package com.example.optiflow;
 
+import Jama.Matrix;
 
 import android.Manifest;
 import android.app.Activity;
@@ -9,7 +10,6 @@ import android.graphics.Bitmap;
 import android.os.Handler;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -25,14 +25,17 @@ import com.intel.realsense.librealsense.DeviceListener;
 import com.intel.realsense.librealsense.DisparityTransformFilter;
 import com.intel.realsense.librealsense.Extension;
 import com.intel.realsense.librealsense.Frame;
-import com.intel.realsense.librealsense.FrameCallback;
 import com.intel.realsense.librealsense.FrameReleaser;
 import com.intel.realsense.librealsense.FrameSet;
 import com.intel.realsense.librealsense.GLRsSurfaceView;
+
 import com.intel.realsense.librealsense.HoleFillingFilter;
+import com.intel.realsense.librealsense.Intrinsic;
 import com.intel.realsense.librealsense.Option;
 import com.intel.realsense.librealsense.Pipeline;
 import com.intel.realsense.librealsense.PipelineProfile;
+import com.intel.realsense.librealsense.Pixel;
+import com.intel.realsense.librealsense.Point_3D;
 import com.intel.realsense.librealsense.Pointcloud;
 import com.intel.realsense.librealsense.Points;
 import com.intel.realsense.librealsense.RsContext;
@@ -42,9 +45,11 @@ import com.intel.realsense.librealsense.StreamFormat;
 import com.intel.realsense.librealsense.StreamType;
 import com.intel.realsense.librealsense.TemporalFilter;
 import com.intel.realsense.librealsense.ThresholdFilter;
+import com.intel.realsense.librealsense.Utils;
 import com.intel.realsense.librealsense.VideoFrame;
-import com.scichart.charting3d.common.math.Point3D;
+import com.intel.realsense.librealsense.MotionIntrinsic;
 
+import org.bytedeco.javacpp.RealSense;
 import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
@@ -52,14 +57,13 @@ import org.opencv.core.Point;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
+import java.util.Collections;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class RealSenseVideo {
@@ -99,7 +103,10 @@ public class RealSenseVideo {
     private File filesDir;
     int count = 0;
     ArrayList<Vector> vectors;
-    boolean caputreCloud = false;
+    int caputreCloud = 0;
+    double angle = 0;
+    Points points1, points2;
+    float[] ver1, ver2;
 
     Runnable mStreaming = new Runnable() {
         AtomicInteger frameCount = new AtomicInteger();
@@ -107,63 +114,76 @@ public class RealSenseVideo {
         @Override
         public void run() {
 
-
             //Recommended filter order from intel
             //Depth Frame >> Decimation Filter >> Depth2Disparity Transform** ->
             // Spatial Filter >> Temporal Filter >> Disparity2Depth Transform** >>
             // Hole Filling Filter >> Filtered Depth. <br/>
 
             try (FrameReleaser fr = new FrameReleaser()) {
-                FrameSet frames = mPipeline.waitForFrames(1000).releaseWith(fr);
+                FrameSet frames = mPipeline.waitForFrames().releaseWith(fr);
                 FrameSet orgSet = frames.releaseWith(fr).applyFilter(mPointCloud).releaseWith(fr);
                 FrameSet processedSet = frames.releaseWith(fr)
                         .applyFilter(mDecimationFilter).releaseWith(fr)
                         .applyFilter(mDisparity).releaseWith(fr)
                         .applyFilter(mSpatialFilter).releaseWith(fr)
                         .applyFilter(mTemporalFilter).releaseWith(fr)
-                        .applyFilter(mDisparity).releaseWith(fr)
                         .applyFilter(mHoleFillingFilter).releaseWith(fr)
-                        .applyFilter(mColorizer).releaseWith(fr)
-                        .applyFilter(mAlign).releaseWith(fr);
+                        .applyFilter(mDisparity).releaseWith(fr)
+                        .applyFilter(mColorizer).releaseWith(fr);
 
                 //Frame processed = processedSet.first(StreamType.DEPTH,StreamFormat.XYZ32F).releaseWith(fr);
 
                 Frame colorDepthFrame = processedSet.first(StreamType.DEPTH).releaseWith(fr);
                 Frame texture = processedSet.first(StreamType.COLOR, StreamFormat.RGB8).releaseWith(fr);
                 DepthFrame depth = orgSet.first(StreamType.DEPTH, StreamFormat.Z16).releaseWith(fr).as(Extension.DEPTH_FRAME);
-//                Frame pointCloudFrame = orgSet.first(StreamType.DEPTH, StreamFormat.XYZ32F).releaseWith(fr);
+                Frame pointCloudFrame = orgSet.first(StreamType.DEPTH, StreamFormat.XYZ32F).releaseWith(fr);
+
 
                 // POINT CLOUD WRITE TO FILE
-//                if (caputreCloud) {
-//                    Log.d(TAG, "Capturing Cloud");
-//                    Points points1 = pointCloudFrame.as(Extension.POINTS);
-//                    float[] ver = points1.getVertices();
-//                    System.out.println("points: " + Arrays.toString(ver));
-//
-//                    File f = new File(filesDir, "pCloudTest.txt");
-//                    if (!f.exists()) {
-//                        f.createNewFile();
-//                    }
-//
-//                    //PrintWriter writer = new PrintWriter(f);
-//                    //writer.print("");
-//
-////                    for (int i = 0; i < ver.length; i = i + 3) {
-////                        writer.append(ver[i] + " ").append(ver[i + 1] + " ").append(-ver[i + 2] + "\n");
-////                    }
-//
-//                    //writer.flush();
-//                    //writer.close();
-//                    Log.d(TAG, "Finish Capturing Cloud");
-//                    caputreCloud = false;
-//
-//                }
+                if (caputreCloud < 2) {
+                    Log.d(TAG, "Capturing Cloud");
+
+                    if (caputreCloud == 0) {
+                        points1 = pointCloudFrame.as(Extension.POINTS);
+                        ver1 = points1.getVertices();
+                        System.out.println("points: " + Arrays.toString(ver1));
+                    }
+
+                    if (caputreCloud == 1) {
+                        points2 = pointCloudFrame.as(Extension.POINTS);
+                        ver2 = points2.getVertices();
+                        System.out.println("points: " + Arrays.toString(ver2));
+
+                        File f = new File(filesDir, "pCloudTest.txt");
+                        if (!f.exists()) {
+                            f.createNewFile();
+                        }
+
+                        PrintWriter writer = new PrintWriter(f);
+                        writer.print("");
+
+                        for (int i = 0; i < ver1.length; i = i + 3) {
+                            writer.append(ver1[i] + " ").append(ver1[i + 1] + " ").append(-ver1[i + 2] + "\n");
+                        }
+
+                        writer.append("------------------------------------------------\n");
+
+                        for (int i = 0; i < ver2.length; i = i + 3) {
+                            writer.append(ver2[i] + " ").append(ver2[i + 1] + " ").append(-ver2[i + 2] + "\n");
+                        }
+
+                    }
+                    //writer.flush();
+                    //writer.close();
+                    Log.d(TAG, "Finish Capturing Cloud");
+                    caputreCloud++;
+
+                }
                 //Log.d(TAG, "Is Depth Frame: " + depth.getDistance(50,50));
 
                 //depth.getDistance(50,50);
 
                 if (depth.is(Extension.DEPTH_FRAME)) {
-                    Log.d("TAG", "Is Depth Frame");
                     if (latestDepthMat != null) {
                         prevDepthMat = latestDepthMat;
                     }
@@ -178,56 +198,202 @@ public class RealSenseVideo {
 
                         for (int i = 0; i < prevPoints.length; i++) {
 
-                            if (prevPoints[i].x >= 0 && prevPoints[i].x <= latestDepthMat.getWidth() - 1 &&
-                                    latestPoints[i].x >= 0 && latestPoints[i].x <= latestDepthMat.getWidth() - 1 &&
-                                    prevPoints[i].y >= 0 && prevPoints[i].y <= latestDepthMat.getHeight() - 1 &&
-                                    latestPoints[i].y >= 0 && latestPoints[i].y <= latestDepthMat.getHeight() - 1) {
+                            if (prevPoints[i].x >= 10 && prevPoints[i].x <= latestDepthMat.getWidth() - 10 &&
+                                    latestPoints[i].x >= 10 && latestPoints[i].x <= latestDepthMat.getWidth() - 10 &&
+                                    prevPoints[i].y >= 10 && prevPoints[i].y <= latestDepthMat.getHeight() - 10 &&
+                                    latestPoints[i].y >= 10 && latestPoints[i].y <= latestDepthMat.getHeight() - 10) {
 
                                 try {
-                                    int prevDepth = (int) (prevDepthMat.getDistance((int) prevPoints[i].x, (int) prevPoints[i].y) * 1000);
-                                    int latestDepth = (int) (latestDepthMat.getDistance((int) latestPoints[i].x, (int) latestPoints[i].y) * 1000);
+                                    float prevDepth = (prevDepthMat.getDistance((int) prevPoints[i].x, (int) prevPoints[i].y));
+                                    float latestDepth = (latestDepthMat.getDistance((int) latestPoints[i].x, (int) latestPoints[i].y));
 
-                                    //If the depths of both frames are 0 reject it
-                                    if (prevDepth + latestDepth != 0) {
-                                        vectors.add(new Vector((int) prevPoints[i].x, (int) prevPoints[i].y, prevDepth,
-                                                (int) latestPoints[i].x, (int) latestPoints[i].y, latestDepth));
+
+                                    //RealSense.rs_deproject_pixel_to_point(deprojOut, depth.getProfile().getIntrinsic()., new float[]{240,135}, prevDepthMat.getDistance(240,135));
+
+
+                                    //If the depths of either frame are 0 reject it
+                                    if (prevDepth != 0 && latestDepth != 0) {
+
+                                        Intrinsic prev_depth_intrinsic = prevDepthMat.getProfile().getIntrinsic();
+                                        Intrinsic late_depth_intrinsic = latestDepthMat.getProfile().getIntrinsic();
+
+                                        Pixel prev_depth_pixel = new Pixel((float) prevPoints[i].x, (float) prevPoints[i].y);
+                                        Pixel late_depth_pixel = new Pixel((float) latestPoints[i].x, (float) latestPoints[i].y);
+
+                                        Point_3D prev_depth_point = Utils.deprojectPixelToPoint(prev_depth_intrinsic, prev_depth_pixel, prevDepth);
+                                        Point_3D late_depth_point = Utils.deprojectPixelToPoint(late_depth_intrinsic, late_depth_pixel, latestDepth);
+
+                                        vectors.add(new Vector(prev_depth_point, late_depth_point));
+
                                     }
                                 } catch (RuntimeException e) {
-                                    System.out.println("Caught Exception for pos: " + (int) prevPoints[i].x + " " + (int) prevPoints[i].y +
-                                            " " + (int) latestPoints[i].x + " " + (int) latestPoints[i].y +
-                                            " " + (prevDepthMat.getWidth() + " " + prevDepthMat.getHeight()) +
-                                            " " + (latestDepthMat.getWidth() + " " + latestDepthMat.getHeight()));
+//                                    System.out.println("Caught Exception for pos: " + (int) prevPoints[i].x + " " + (int) prevPoints[i].y +
+//                                            " " + (int) latestPoints[i].x + " " + (int) latestPoints[i].y +
+//                                            " " + (prevDepthMat.getWidth() + " " + prevDepthMat.getHeight()) +
+//                                            " " + (latestDepthMat.getWidth() + " " + latestDepthMat.getHeight()));
                                 }
                             }
                         }
 
-
-                        double xTot = 0, yTot = 0, zTot = 0;
+                        double changeZ = 0;
+                        double[][] a = new double[3][vectors.size()], b = new double[3][vectors.size()];
+                        Matrix aa = null;
+                        Matrix bb = null;
                         for (int i = 0; i < vectors.size(); i++) {
                             Vector v = vectors.get(i);
-                            xTot += v.changeVec()[0];
-                            yTot += v.changeVec()[1];
-                            zTot += v.changeVec()[2];
-                            stringBuilder.append(v).append(';');
+
+                            a[0][i] = v.getprevasArray()[0];
+                            a[1][i] = v.getprevasArray()[1];
+                            a[2][i] = v.getprevasArray()[2];
+
+                            b[0][i] = v.getlatestasArray()[0];
+                            b[1][i] = v.getlatestasArray()[1];
+                            b[2][i] = v.getlatestasArray()[2];
+
+                            changeZ = changeZ + v.changeVec()[2];
                         }
 
-                        System.out.println(stringBuilder.toString());
+                        if (vectors.size() > 2 && (changeZ != 0 || !Double.isNaN(changeZ / vectors.size()))) {
+                            aa = new Matrix(a);
+                            bb = new Matrix(b);
+                            System.out.println("A");
+                            System.out.println(Arrays.deepToString(aa.getArray()));
 
-                        double finalXTot = xTot / vectors.size();
-                        double finalYTot = yTot / vectors.size();
-                        double finalZTot = zTot / vectors.size();
-                        activity.runOnUiThread(() -> {
+                            System.out.println("\nB");
+                            System.out.println(Arrays.deepToString(bb.getArray()));
 
-                        });
+                            double[] centroid_A = (arrayMeans(a));
+                            double[] centroid_B = (arrayMeans(b));
+//
+                            System.out.println("\ncentroid_A");
+                            System.out.println(Arrays.toString(centroid_A));
 
-                        if (running) {
-                            networking.send("OptiFlow: " + stringBuilder.toString() + "###\n");
-                            changeCamera.appendPoints((float) finalXTot, (float) finalYTot, (float) (finalZTot / 1000.0));
-                            integrateVectors(posCameraVect, new float[]{(float) xTot, (float) yTot, (float) (zTot / 1000.0)}, 0.01666666666f);
-                            posCamera.appendPoints(posCameraVect[0], posCameraVect[1], posCameraVect[2]);
+                            System.out.println("\ncentroid_B");
+                            System.out.println(Arrays.toString(centroid_B));
 
- //                           writer.append("OptiFlow:").append(stringBuilder.toString()).append(String.valueOf('\n'));
+                            Matrix aM, bM;
 
+                            aM = new Matrix(adjustArray(aa.getArray(), centroid_A));
+                            bM = new Matrix(adjustArray(bb.getArray(), centroid_B));
+
+                            System.out.println("\n Am");
+                            System.out.println(Arrays.deepToString(aM.getArray()));
+
+                            System.out.println("\n Bm");
+                            System.out.println(Arrays.deepToString(bM.getArray()));
+
+                            System.out.println("\n Transpose Bm");
+                            System.out.println(Arrays.deepToString(bM.transpose().getArray()));
+
+                            Matrix H = (aM.times(bM.transpose()));
+//
+                            System.out.println("\n H");
+                            System.out.println(Arrays.deepToString(H.getArray()));
+
+                            System.out.println("\n U");
+                            Matrix U = H.svd().getU();
+                            System.out.println(Arrays.deepToString(H.svd().getU().getArray()));
+
+                            System.out.println("\n S");
+                            System.out.println(Arrays.deepToString(H.svd().getS().getArray()));
+
+                            System.out.println("\n Vt");
+                            Matrix Vt = new Matrix((H.svd().getV().transpose().getArray()));
+                            System.out.println(Arrays.deepToString(Vt.getArray()));
+
+                            System.out.println("\n Recovered Rotation");
+                            Matrix R = Vt.transpose().times(U.transpose());
+                            System.out.println(Arrays.deepToString(R.getArray()));
+
+                            System.out.println("\n Recovered Translation");
+                            double[][] Rt = R.uminus().times(new Matrix(arrTo2DArr(centroid_A))).plus(new Matrix(arrTo2DArr(centroid_B))).getArray();
+                            System.out.println(Arrays.deepToString(Rt));
+
+                            System.out.println("\nFinding X,Y,Z angle change");
+                            System.out.println(Math.toDegrees(Math.atan2(-R.get(1, 2), R.get(2, 2))) + ", " + Math.asin(R.get(0, 2)) + ", " + Math.atan2(-R.get(0, 1), R.get(1, 1)));
+
+                            System.out.println("\ncalculating change of distance X:");
+                            double deltX = (Rt[0][0] + centroid_B[2] * Math.sin((-Math.atan2(-R.get(1, 2), R.get(2, 2)))));
+                            System.out.println(deltX);
+
+                            System.out.println("\ncalculating change of distance Z:");
+                            System.out.println((centroid_A[2] + Rt[2][0]) - (centroid_B[2] * Math.cos(Math.toRadians(4.4373))));
+
+
+                            System.out.println("\ncalculating change of distance Y:");
+                            double deltY = Rt[0][1] + centroid_B[2] * Math.sin(Math.asin(R.get(0, 2)));
+                            System.out.println(deltY);
+
+                            System.out.println("\ncalculating change of distance Z:");
+                            System.out.println((centroid_A[2] + Rt[2][0]));
+                            System.out.println((centroid_B[2] * Math.sin(Math.asin(R.get(0, 2)))));
+
+//
+//                            System.out.println("Change tot: " + changeZ + ", average change: " + changeZ / vectors.size());
+//
+//                            changeZ = changeZ / vectors.size();
+
+                            //Sort the vectors by the z depth
+                            Collections.sort(vectors);
+
+                            //average the change in z -> There is no instance where the z will change differently between them
+//                            for (Vector v : vectors) {
+//                                v.changeDepth(changeZ);
+//                            }
+
+//                            //Find the trend line of the change in X ------------------------
+//                            double Exy = 0, Ex = 0, Ey = 0, ExSqr = 0, EySqr = 0, b1 = 0, a1 = 0;
+//                            for (int i = 0; i < vectors.size(); i++) {
+//                                Vector v = vectors.get(i);
+//                                Ey = Ey + v.changeVec()[0];
+//                                Ex = Ex + i + 1;
+//                                Exy = Exy + (v.changeVec()[0] * (i + 1));
+//                                EySqr = EySqr + Math.pow(v.changeVec()[0], 2);
+//                                ExSqr = ExSqr + Math.pow(i + 1, 2);
+//                            }
+//
+//                            a1 = (Ey * ExSqr - Ex * Exy) / (vectors.size() * ExSqr - Math.pow(Ex, 2));
+//                            b1 = (vectors.size() * Exy - Ex * Ey) / (vectors.size() * ExSqr - Math.pow(Ex, 2));
+//
+//                            System.out.println("Y= bx+a: " + " Y = " + b1 + "x+" + a1);
+//
+//                            if (!Double.isNaN(Math.toDegrees(Math.atan2(1, b1)))) {
+//                                angle = angle + (90 - (Math.toDegrees(Math.atan2(1, b1))));
+//
+//                                System.out.println("Angle Change: " + (Math.toDegrees(Math.atan2(1, b1))) + " | Total Angle: " + angle);
+//                            }
+//                            //Finish trend line of the change in X ------------------------
+
+
+//                            double xTot = 0, yTot = 0, zTot = 0;
+//                            StringBuilder grouping = new StringBuilder();
+//                            for (int i = 0; i < vectors.size(); i++) {
+//                                Vector v = vectors.get(i);
+//                                xTot += v.changeVec()[0];
+//                                yTot += v.changeVec()[1];
+//                                zTot += v.changeVec()[2];
+//                                stringBuilder.append(v).append(';');
+//
+//                                grouping.append(v).append('\n');
+//                            }
+//                            Log.d(TAG, "Grouping: " + grouping.toString());
+//
+//                            double finalXTot = xTot / vectors.size();
+//                            double finalYTot = yTot / vectors.size();
+//                            double finalZTot = zTot / vectors.size();
+//                            activity.runOnUiThread(() -> {
+//
+//                            });
+
+                            if (running) {
+                                networking.send("OptiFlow: " + stringBuilder.toString() + "###\n");
+                                changeCamera.appendPoints((float) deltX, (float) deltY, (float) (centroid_A[2]-centroid_B[2]));
+                                integrateVectors(posCameraVect, new float[]{(float) deltX, (float) deltY, (float) ((centroid_A[2]-centroid_B[2]))}, 0.01666666666f);
+                                posCamera.appendPoints(posCameraVect[0], posCameraVect[1], posCameraVect[2]);
+
+                                //                           writer.append("OptiFlow:").append(stringBuilder.toString()).append(String.valueOf('\n'));
+
+                            }
                         }
                     }
 
@@ -272,8 +438,9 @@ public class RealSenseVideo {
                 //Test for stream type
                 if (video.getProfile().getType() == StreamType.DEPTH) {
 
-                    Bitmap bm = depthFlow.processFrame(mat, 25);
+                    Bitmap bm = depthFlow.processFrame(mat, 10);
                     Point[][] points = depthFlow.getOpticalChange();
+
 
                     prevPoints = points[0];
                     latestPoints = points[1];
@@ -283,9 +450,9 @@ public class RealSenseVideo {
                         // find the image view and draw it!
                         ImageView iv = activity.findViewById(R.id.openCVDepthView);
                         iv.setImageBitmap(bm);
-
                     });
                 }
+
 
                 // ---GET THE VIDEO FROM THE VIDEO FRAME AND DISPLAY IT AS WELL AS GET THE OPTICAL FLOW--- //
                 //Gets the video frame (depth or video)
@@ -301,7 +468,7 @@ public class RealSenseVideo {
                 mat.put(0, 0, return_buff);
                 if (video.getProfile().getType() == StreamType.COLOR) {
 
-                    Bitmap bm = colorFlow.processFrame(mat, 1);
+                    Bitmap bm = colorFlow.processFrame(mat, 10);
 
                     activity.runOnUiThread(() -> {
 
@@ -334,6 +501,47 @@ public class RealSenseVideo {
             stop();
         }
     };
+
+
+    public static double[] arrayMeans(double[][] arrIn) {
+        double[] center = new double[3];
+
+        double mean = 0.0;
+        for (int i = 0; i < arrIn.length; i++) {
+            double[] d = arrIn[i];
+            for (double doub : d) {
+                mean = mean + doub;
+            }
+            center[i] = mean / d.length;
+            mean = 0;
+        }
+
+        return center;
+    }
+
+    public static double[][] adjustArray(double[][] arrIn, double[] arrAdjIn) {
+        double[][] arrOut = arrIn.clone();
+
+        double valueOut = 0.0;
+        for (int i = 0; i < arrIn.length; i++) {
+            for (int j = 0; j < arrIn[0].length; j++) {
+                arrOut[i][j] = arrIn[i][j] - arrAdjIn[i];
+            }
+        }
+
+        return arrOut;
+    }
+
+    public static double[][] arrTo2DArr(double[] arrIn) {
+        double[][] arrOut = new double[3][3];
+
+        for (int i = 0; i < 3; i++) {
+            arrOut[i][0] = arrIn[i];
+        }
+
+        return arrOut;
+    }
+
     private boolean mPermissionsGranted = false;
     private boolean running = false;
     private LineGraphXYX posCamera;
@@ -391,9 +599,10 @@ public class RealSenseVideo {
 
         //config filters
         mThresholdFilter.setValue(Option.MIN_DISTANCE, 0.1f);
-        mThresholdFilter.setValue(Option.MAX_DISTANCE, 8.0f);
+        mThresholdFilter.setValue(Option.MAX_DISTANCE, 7.0f);
 
-        mDecimationFilter.setValue(Option.FILTER_MAGNITUDE, 1);
+
+        mDecimationFilter.setValue(Option.FILTER_MAGNITUDE, 1f);
 
         try (DeviceList dl = mRsContext.queryDevices()) {
             if (dl.getDeviceCount() > 0) {
@@ -506,6 +715,6 @@ public class RealSenseVideo {
     }
 
     public void captureCloud() {
-        this.caputreCloud = true;
+        this.caputreCloud = 0;
     }
 }

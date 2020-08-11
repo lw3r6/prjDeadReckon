@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion 28
 
     defaultConfig {
         applicationId "com.example.optiflow"
@@ -40,6 +40,9 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.2.1'
     implementation 'androidx.navigation:navigation-fragment:2.2.2'
     implementation 'androidx.navigation:navigation-ui:2.2.2'
+    implementation files('libs\\javacpp-1.4.4.jar')
+    implementation files('libs\\librealsense-1.12.1-1.4.4.jar')
+    implementation files('libs\\Jama-1.0.3.jar')
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     testImplementation 'junit:junit:4.12'
@@ -57,7 +60,8 @@ dependencies {
 
     // Realsense and OpenCV
     //noinspection GradleDependency 2.36
-    implementation 'com.intel.realsense:librealsense:2.36.0@aar'
+    //implementation 'com.intel.realsense:librealsense:2.36.0@aar'
+    implementation(name:'librealsense-release', ext:'aar')
     implementation project(path: ':openCVLibrary343')
 
     //Lib Streaming
